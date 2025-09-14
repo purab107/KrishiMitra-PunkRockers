@@ -1,4 +1,4 @@
-# 🌾 Crop Recommendation System – Algo Alliance
+# 🌾 Crop Recommendation System – PUNKROCKERS
 
 This project was developed as part of the **Smart India Hackathon 2025** under the theme **Digital Agriculture**.  
 It empowers farmers with **AI-driven crop recommendations** using soil, weather, and market data.  

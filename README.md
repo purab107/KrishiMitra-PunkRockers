@@ -1,4 +1,4 @@
-# 🌾 Crop Recommendation System – PUNKROCKERS
+# 🌾 Crop Recommendation System – KrishiMitra
 
 This project was developed as part of the **Smart India Hackathon 2025** under the theme **Digital Agriculture**.  
 It empowers farmers with **AI-driven crop recommendations** using soil, weather, and market data.  
@@ -174,4 +174,5 @@ Runs on: `http://localhost:8000`
 
 ---
 
-🚀 Developed with ❤️ by **Algo Alliance** for **Smart India Hackathon 2025**
+🚀 Developed with ❤️ by **PunkRockers** for **Smart India Hackathon 2025**
+**Kindness Is The New PunkRock**

@@ -45,14 +45,42 @@ router.get('/', (req, res) => {
 
           const days = Object.keys(buckets).slice(0, 5).map((date) => {
             const bucket = buckets[date];
-            // simple pick: first item's weather as representative
-            const rep = bucket.items[0];
+            // calculate aggregates and hourly items
+            const hours = bucket.items.map((it) => ({
+              dt: it.dt,
+              time: new Date(it.dt * 1000).toISOString(),
+              temp: Math.round(it.main.temp),
+              temp_min: Math.round(it.main.temp_min),
+              temp_max: Math.round(it.main.temp_max),
+              humidity: it.main.humidity,
+              wind_speed: it.wind && it.wind.speed,
+              rain: (it.rain && (it.rain['1h'] || it.rain['3h'])) || 0,
+              pop: typeof it.pop !== 'undefined' ? Math.round(it.pop * 100) : null,
+              weather: it.weather && it.weather[0] ? it.weather[0].main : '',
+              description: it.weather && it.weather[0] ? it.weather[0].description : '',
+            }));
+
+            const precipTotal = hours.reduce((s, h) => s + (h.rain || 0), 0);
+            const avgHumidity = Math.round(hours.reduce((s, h) => s + (h.humidity || 0), 0) / hours.length);
+            const avgWind = Number((hours.reduce((s, h) => s + (h.wind_speed || 0), 0) / hours.length).toFixed(1));
+
+            // choose representative weather from the hour with highest pop or first
+            const rep = hours.reduce((best, h) => {
+              if (!best) return h;
+              if ((h.pop || 0) > (best.pop || 0)) return h;
+              return best;
+            }, null) || hours[0];
+
             return {
               date,
               temp_min: Math.round(bucket.min),
               temp_max: Math.round(bucket.max),
-              weather: rep && rep.weather && rep.weather[0] ? rep.weather[0].main : '',
-              description: rep && rep.weather && rep.weather[0] ? rep.weather[0].description : '',
+              weather: rep ? rep.weather : '',
+              description: rep ? rep.description : '',
+              precip_total_mm: Math.round(precipTotal * 10) / 10, // one decimal
+              avg_humidity: avgHumidity,
+              avg_wind_speed: avgWind,
+              hours,
             };
           });
 

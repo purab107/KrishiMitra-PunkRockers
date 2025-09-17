@@ -14,6 +14,7 @@ import CropRecommendation from './screens/CropRecommendation';
 import Profile from './screens/Profile';
 import Forecast from './screens/Forecast';
 import MarketPrices from './screens/MarketPrices';
+import SoilInfo from './screens/SoilInfo';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,7 @@ export default function App() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Forecast" component={Forecast} />
         <Stack.Screen name="MarketPrices" component={MarketPrices} />
+        <Stack.Screen name="SoilInfo" component={SoilInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   );

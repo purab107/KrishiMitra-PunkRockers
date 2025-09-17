@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function MarketPrices() {
+export default function MarketPrices({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [markets, setMarkets] = useState([]);
   const [error, setError] = useState(null);
@@ -27,7 +28,12 @@ export default function MarketPrices() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}><Text style={styles.title}>मंडी भाव</Text></View>
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={22} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.title}>मंडी भाव</Text>
+      </View>
       <View style={styles.body}>
         {loading ? (
           <ActivityIndicator />
@@ -55,8 +61,9 @@ export default function MarketPrices() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
-  header: { padding: 16, backgroundColor: '#8BCD45' },
-  title: { color: '#fff', fontWeight: 'bold', fontSize: 18 },
+  header: { padding: 16, backgroundColor: '#8BCD45', flexDirection: 'row', alignItems: 'center' },
+  title: { color: '#fff', fontWeight: 'bold', fontSize: 18, marginLeft: 8 },
+  backButton: { padding: 6 },
   body: { padding: 16 },
   row: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, borderBottomWidth: 1, borderColor: '#eee' },
   marketName: { fontWeight: '700' },

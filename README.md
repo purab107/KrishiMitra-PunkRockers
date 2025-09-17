@@ -1,4 +1,4 @@
-# 🌾 Crop Recommendation System – KrishiMitra
+# 🌾 Crop Recommendation System – Algo Alliance
 
 This project was developed as part of the **Smart India Hackathon 2025** under the theme **Digital Agriculture**.  
 It empowers farmers with **AI-driven crop recommendations** using soil, weather, and market data.  
@@ -49,7 +49,7 @@ It empowers farmers with **AI-driven crop recommendations** using soil, weather,
 | **Backend**      | Node.js + Express.js |
 | **Database**     | MySQL / PostgreSQL |
 | **Machine Learning** | Python (Scikit-learn, SHAP, Random Forest, XGBoost) |
-| **External APIs**| OpenWeatherMap API, NASA POWER API, Agmarknet API, Bhuvan API |
+| **External APIs**| OpenWeatherMap API, NASA POWER API, Agmarknet API |
 
 ---
 
@@ -174,6 +174,4 @@ Runs on: `http://localhost:8000`
 
 ---
 
-🚀 Developed with ❤️ by **PunkRockers** for **Smart India Hackathon 2025**.
----
-**Kindness Is The New PunkRock**
+🚀 Developed with ❤️ by **Algo Alliance** for **Smart India Hackathon 2025**

@@ -9,6 +9,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -36,11 +37,12 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <View style={styles.header}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={styles.container} keyboardShouldPersistTaps="handled">
+        <View style={styles.header}>
         <Text style={styles.logo}>🌾</Text>
         <Text style={styles.title}>कृषि मित्र</Text>
         <Text style={styles.subtitle}>स्मार्ट खेती, टिकाऊ भविष्य</Text>
@@ -101,6 +103,7 @@ export default function LoginScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }

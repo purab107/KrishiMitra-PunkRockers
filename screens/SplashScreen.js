@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Platform } from 'react-native';
 
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate('Language');
-    }, 2000);
-    return () => clearTimeout(timer);
+    if (Platform.OS !== 'web') {
+      const timer = setTimeout(() => {
+        navigation.navigate('Language');
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff' }}
+      keyboardShouldPersistTaps="handled"
+    >
       <Text style={styles.logo}>🌾</Text>
       <Text style={styles.title}>Krishi Mitra</Text>
       <Text style={styles.subtitle}>Smart Farming, Sustainable Future</Text>
@@ -20,7 +26,7 @@ export default function SplashScreen({ navigation }) {
       >
         <Text style={styles.skipText}>Tap to continue</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 

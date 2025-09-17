@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function LoginScreen() {
@@ -8,7 +8,7 @@ export default function LoginScreen() {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 20 }}>
       <Text style={styles.title}>🌾 Farmer Login</Text>
 
       <TextInput
@@ -27,7 +27,7 @@ export default function LoginScreen() {
 
       <Button title="Login" onPress={() => router.replace("/(tabs)")} />
       <Button title="Register" onPress={() => router.push("/register")} />
-    </View>
+    </ScrollView>
   );
 }
 

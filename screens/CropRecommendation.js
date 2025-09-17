@@ -8,30 +8,30 @@ export default function CropRecommendation({ navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{padding: 24}}>
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.backButtonText}>← Back</Text>
+          <Text style={styles.backButtonText}>← वापस</Text>
         </TouchableOpacity>
         <View style={styles.header}>
           <Text style={styles.appTitle}>फसल अनुशंसा</Text>
-          <Text style={styles.tagline}>AI आधारित अनुशंसा परिणाम</Text>
+          <Text style={styles.tagline}>एआई-आधारित अनुशंसा परिणाम</Text>
         </View>
         <View style={styles.weatherCard}>
-          <Text style={styles.weatherTitle}>Recommended Crop: <Text style={{color:'#4A7C59', fontWeight:'bold'}}>Soyabean</Text></Text>
+          <Text style={styles.weatherTitle}>अनुशंसित फसल: <Text style={{color:'#4A7C59', fontWeight:'bold'}}>सोयाबीन</Text></Text>
           <View style={{marginVertical: 8}}>
-            <Text style={styles.weatherLabel}>Expected Yield: <Text style={styles.weatherValue}>~12 quintals/acre</Text></Text>
-            <Text style={styles.weatherLabel}>Estimated Profit: <Text style={styles.weatherValue}>₹45,000</Text></Text>
-            <Text style={styles.weatherLabel}>Sustainability Score: <Text style={styles.weatherValue}>8/10 (Good for soil health)</Text></Text>
+            <Text style={styles.weatherLabel}>अपेक्षित उपज: <Text style={styles.weatherValue}>~12 क्विंटल/एकड़</Text></Text>
+            <Text style={styles.weatherLabel}>अनुमानित लाभ: <Text style={styles.weatherValue}>₹45,000</Text></Text>
+            <Text style={styles.weatherLabel}>सस्टेनेबिलिटी स्कोर: <Text style={styles.weatherValue}>8/10 (मिट्टी के लिए अच्छा)</Text></Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 16}}>
             <TouchableOpacity style={styles.featureButton}>
-              <Text style={styles.featureText}>🔊 Listen</Text>
+              <Text style={styles.featureText}>🔊 सुनें</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.featureButton} onPress={()=>setShowPrices(!showPrices)}>
-              <Text style={styles.featureText}>See Market Prices</Text>
+              <Text style={styles.featureText}>मंडी भाव देखें</Text>
             </TouchableOpacity>
           </View>
           {showPrices && (
             <View style={{marginTop:16, backgroundColor:'#E8F5E8', borderRadius:12, padding:12}}>
-              <Text style={{fontWeight:'bold', color:'#4A7C59', marginBottom:4}}>मंडी भाव (Mandi Prices)</Text>
+              <Text style={{fontWeight:'bold', color:'#4A7C59', marginBottom:4}}>मंडी भाव</Text>
               <Text>रायपुर: ₹4,200/क्विंटल</Text>
               <Text>बिलासपुर: ₹4,150/क्विंटल</Text>
               <Text>राजनांदगांव: ₹4,300/क्विंटल</Text>

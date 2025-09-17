@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,11 +6,45 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function HomePage({ navigation }) {
+  const [weather, setWeather] = useState(null);
+  const [loadingWeather, setLoadingWeather] = useState(false);
+  const [weatherError, setWeatherError] = useState(null);
+
+  useEffect(() => {
+    // Fetch weather for Raipur (fallback) from backend proxy
+    const fetchWeather = async () => {
+      setLoadingWeather(true);
+      setWeatherError(null);
+      try {
+        const res = await fetch('http://localhost:5000/api/weather?q=Raipur,IN');
+        const text = await res.text();
+        try {
+          const json = JSON.parse(text);
+          if (json.ok) {
+            setWeather(json);
+          } else {
+            setWeatherError(json.message || JSON.stringify(json.error || json));
+          }
+        } catch (parseErr) {
+          // Not JSON — show raw body to aid debugging (often HTML error pages)
+          setWeatherError(`Non-JSON response from server: ${text.slice(0, 200)}`);
+        }
+      } catch (err) {
+        setWeatherError(err.message);
+      } finally {
+        setLoadingWeather(false);
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Scrollable Content */}
@@ -28,7 +62,11 @@ export default function HomePage({ navigation }) {
               <Text style={styles.appTitle}>कृषि मित्र</Text>
               <Text style={styles.tagline}>स्मार्ट खेती, टिकाऊ भविष्य</Text>
             </View>
-            <TouchableOpacity style={styles.profileButton}>
+            <TouchableOpacity
+              style={styles.profileButton}
+              onPress={() => navigation.navigate('Profile')}
+              accessibilityLabel="Open profile"
+            >
               <Image
                 source={require('../assets/Avatars.png')}
               />
@@ -39,61 +77,69 @@ export default function HomePage({ navigation }) {
 
         {/* Weather Card */}
         <View style={styles.weatherCard}>
-          <Text style={styles.weatherTitle}>गर्जन के साथ बारिश</Text>
+          <Text style={styles.weatherTitle}>मौसम जानकारी</Text>
 
           <View style={styles.locationRow}>
             <Image
               source={require('../assets/vector-5.png')}
               style={styles.locationIcon2}
             />
-            <Text style={styles.locationText}>मुझगहान, छत्तीसगढ़</Text>
+            <Text style={styles.locationText}>Raipur, छत्तीसगढ़</Text>
           </View>
 
-          <View style={styles.weatherGrid}>
-            <View style={styles.weatherItem}>
-              <Image
-                source={require('../assets/vector-6.png')}
-                style={styles.locationIcon}
-              />
-              <View style={styles.weatherTextContainer}>
-                <Text style={styles.weatherValue}>32°</Text>
-                <Text style={styles.weatherLabel}>सेल्सियस</Text>
+          {loadingWeather ? (
+            <ActivityIndicator size="large" color="#4A90E2" />
+          ) : weatherError ? (
+            <Text style={{ color: 'red' }}>{weatherError}</Text>
+          ) : weather ? (
+            <View style={styles.weatherGrid}>
+              <View style={styles.weatherItem}>
+                <Image
+                  source={require('../assets/vector-6.png')}
+                  style={styles.locationIcon}
+                />
+                <View style={styles.weatherTextContainer}>
+                  <Text style={styles.weatherValue}>{Math.round(weather.temp)}°</Text>
+                  <Text style={styles.weatherLabel}>सेल्सियस</Text>
+                </View>
               </View>
-            </View>
 
-            <View style={styles.weatherItem}>
-              <Image
-                source={require('../assets/vector-4.png')}
-                style={styles.locationIcon}
-              />
-              <View style={styles.weatherTextContainer}>
-                <Text style={styles.weatherValue}>45%</Text>
-                <Text style={styles.weatherLabel}>वर्षा</Text>
+              <View style={styles.weatherItem}>
+                <Image
+                  source={require('../assets/vector-4.png')}
+                  style={styles.locationIcon}
+                />
+                <View style={styles.weatherTextContainer}>
+                  <Text style={styles.weatherValue}>{weather.rain_1h ? weather.rain_1h + 'mm' : '—'}</Text>
+                  <Text style={styles.weatherLabel}>वर्षा</Text>
+                </View>
               </View>
-            </View>
 
-            <View style={styles.weatherItem}>
-              <Image
-                source={require('../assets/vector-3.png')}
-                style={styles.locationIcon}
-              />
-              <View style={styles.weatherTextContainer}>
-                <Text style={styles.weatherValue}>11 किमी/घं</Text>
-                <Text style={styles.weatherLabel}>हवा</Text>
+              <View style={styles.weatherItem}>
+                <Image
+                  source={require('../assets/vector-3.png')}
+                  style={styles.locationIcon}
+                />
+                <View style={styles.weatherTextContainer}>
+                  <Text style={styles.weatherValue}>{weather.wind_speed ? weather.wind_speed + ' m/s' : '—'}</Text>
+                  <Text style={styles.weatherLabel}>हवा</Text>
+                </View>
               </View>
-            </View>
 
-            <View style={styles.weatherItem}>
-              <Image
-                source={require('../assets/vector-2.png')}
-                style={styles.locationIcon}
-              />
-              <View style={styles.weatherTextContainer}>
-                <Text style={styles.weatherValue}>78%</Text>
-                <Text style={styles.weatherLabel}>नमी</Text>
+              <View style={styles.weatherItem}>
+                <Image
+                  source={require('../assets/vector-2.png')}
+                  style={styles.locationIcon}
+                />
+                <View style={styles.weatherTextContainer}>
+                  <Text style={styles.weatherValue}>{weather.humidity}%</Text>
+                  <Text style={styles.weatherLabel}>नमी</Text>
+                </View>
               </View>
             </View>
-          </View>
+          ) : (
+            <Text>मौसम उपलब्ध नहीं है</Text>
+          )}
         </View>
 
         {/* Main Feature Buttons */}
@@ -213,7 +259,9 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   profileButton: {
-    padding: 5,
+    padding: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   welcomeText: {
     color: '#fff',

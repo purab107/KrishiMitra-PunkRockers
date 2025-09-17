@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  ScrollView,
 } from 'react-native';
 
 export default function SignUpScreen({ navigation }) {
@@ -21,7 +22,7 @@ export default function SignUpScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity 
           style={styles.backButton}
@@ -29,14 +30,11 @@ export default function SignUpScreen({ navigation }) {
         >
           <Text style={styles.backText}>← वापस जाएँ</Text>
         </TouchableOpacity>
-        
         <Text style={styles.logo}>🌾</Text>
         <Text style={styles.title}>कृषि मित्र</Text>
       </View>
-
       <View style={styles.formContainer}>
         <Text style={styles.signUpText}>साइन अप करें</Text>
-        
         <TextInput
           style={styles.input}
           placeholder="पूरा नाम"
@@ -44,7 +42,6 @@ export default function SignUpScreen({ navigation }) {
           onChangeText={setFullName}
           autoCapitalize="words"
         />
-        
         <TextInput
           style={styles.input}
           placeholder="ईमेल"
@@ -53,7 +50,6 @@ export default function SignUpScreen({ navigation }) {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        
         <TextInput
           style={styles.input}
           placeholder="पासवर्ड"
@@ -61,7 +57,6 @@ export default function SignUpScreen({ navigation }) {
           onChangeText={setPassword}
           secureTextEntry
         />
-        
         <TextInput
           style={styles.input}
           placeholder="पासवर्ड की पुष्टि करें"
@@ -69,14 +64,12 @@ export default function SignUpScreen({ navigation }) {
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
-        
         <TouchableOpacity 
           style={styles.signUpButton}
           onPress={handleSignUp}
         >
           <Text style={styles.signUpButtonText}>साइन अप करें</Text>
         </TouchableOpacity>
-        
         <TouchableOpacity 
           style={styles.signInLink}
           onPress={() => navigation.navigate('Login')}
@@ -86,7 +79,7 @@ export default function SignUpScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

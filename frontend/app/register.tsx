@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function RegisterPage() {
@@ -14,7 +14,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 20, backgroundColor: '#fff' }}>
       <Text style={styles.title}>🌱 Register</Text>
 
       <TextInput style={styles.input} placeholder="Full name" value={name} onChangeText={setName} />
@@ -22,7 +22,7 @@ export default function RegisterPage() {
       <TextInput style={styles.input} placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
 
       <Button title="Register" onPress={handleRegister} />
-    </View>
+    </ScrollView>
   );
 }
 

@@ -187,6 +187,30 @@ export default function HomePage({ navigation }) {
             />
             <Text style={styles.featureText}>वॉइस एआई सहायक</Text>
           </TouchableOpacity>
+
+          {/* New: Calendar */}
+          <TouchableOpacity
+            style={styles.featureButton}
+            onPress={() => navigation.navigate('Calendar')}
+          >
+            <Image
+              source={require('../assets/calendar.png')}
+              style={styles.locationIcon}
+            />
+            <Text style={styles.featureText}>कैलेंडर</Text>
+          </TouchableOpacity>
+
+          {/* New: Irrigation */}
+          <TouchableOpacity
+            style={styles.featureButton}
+            onPress={() => navigation.navigate('Irrigation')}
+          >
+            <Image
+              source={require('../assets/watering-plants.png')}
+              style={styles.locationIcon}
+            />
+            <Text style={styles.featureText}>सिंचाई</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -317,6 +341,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
+  },
+  locationIcon: {
+    width: 56,
+    height: 56,
+    resizeMode: 'contain',
+    marginBottom: 8,
   },
   featureText: {
     color: '#fff',

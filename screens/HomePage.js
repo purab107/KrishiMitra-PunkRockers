@@ -56,9 +56,16 @@ export default function HomePage({ navigation }) {
         <View style={styles.header}>
           <View style={styles.headerTop}>
             <View style={styles.logoSection}>
-              <Image
-                source={require('../frontend/assets/images/emblem.png')}
-              />
+              <View style={styles.logoImages}>
+                <Image
+                  source={require('../frontend/assets/images/emblem.png')}
+                  style={styles.emblem}
+                />
+                <Image
+                  source={require('../frontend/assets/images/Group 3 1.png')}
+                  style={styles.emblemBadge}
+                />
+              </View>
               <Text style={styles.appTitle}>कृषि मित्र</Text>
               <Text style={styles.tagline}>स्मार्ट खेती, टिकाऊ भविष्य</Text>
             </View>
@@ -68,7 +75,8 @@ export default function HomePage({ navigation }) {
               accessibilityLabel="Open profile"
             >
               <Image
-                source={require('../assets/Avatars.png')}
+                  source={require('../assets/Avatars.png')}
+                  style={{ width: 64, height: 64, resizeMode: 'contain' }}
               />
             </TouchableOpacity>
           </View>
@@ -84,7 +92,7 @@ export default function HomePage({ navigation }) {
               source={require('../assets/vector-5.png')}
               style={styles.locationIcon2}
             />
-            <Text style={styles.locationText}>Raipur, छत्तीसगढ़</Text>
+            <Text style={styles.locationText}>रायपुर, छत्तीसगढ़</Text>
           </View>
 
           {loadingWeather ? (
@@ -227,18 +235,34 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 30,
+    paddingTop: 12,
+    paddingBottom: 10,
     backgroundColor: '#8BCD45',
   },
   headerTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 15,
+    alignItems: 'center',
+    marginBottom: 8,
   },
   logoSection: {
     flex: 1,
+  },
+  logoImages: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  emblem: {
+    width: 64,
+    height: 64,
+    resizeMode: 'contain',
+  },
+  emblemBadge: {
+    width: 64,
+    height: 64,
+    resizeMode: 'contain',
+    marginLeft: 10,
   },
   appTitle: {
     color: '#fff',

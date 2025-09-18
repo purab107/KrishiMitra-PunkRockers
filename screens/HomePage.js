@@ -190,39 +190,8 @@ export default function HomePage({ navigation }) {
         </View>
       </ScrollView>
 
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="home" size={26} color="#4CAF50" />
-          <Text style={[styles.navText, styles.activeNavText]}>
-            मुख्य पृष्ठ
-          </Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => navigation.navigate('AIChat')}
-        >
-          <Icon name="chat-processing" size={26} color="#777" />
-          <Text style={styles.navText}>एआई चैट</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Forecast')}
-        >
-          <Icon name="weather-cloudy" size={26} color="#777" />
-          <Text style={styles.navText}>मौसम पूर्वानुमान</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Profile')}
-        >
-          <Icon name="account" size={26} color="#777" />
-          <Text style={styles.navText}>मेरा प्रोफ़ाइल</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }

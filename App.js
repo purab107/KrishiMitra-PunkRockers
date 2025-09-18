@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Linking from 'expo-linking';
 import { Platform } from 'react-native';
+import { createNavigationContainerRef } from '@react-navigation/native';
+import BottomNav from './components/BottomNav';
 
 // Import your screens
 import SplashScreen from './screens/SplashScreen';
@@ -17,6 +19,7 @@ import MarketPrices from './screens/MarketPrices';
 import SoilInfo from './screens/SoilInfo';
 
 const Stack = createStackNavigator();
+export const navigationRef = createNavigationContainerRef();
 
 const linking = {
   prefixes: [Linking.createURL('/')],
@@ -41,7 +44,7 @@ export default function App() {
   const initialRoute = Platform.OS === 'web' ? undefined : 'Splash';
 
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer linking={linking} ref={navigationRef}>
       <Stack.Navigator 
         initialRouteName={initialRoute}
         screenOptions={{ headerShown: false }}
@@ -57,6 +60,7 @@ export default function App() {
         <Stack.Screen name="MarketPrices" component={MarketPrices} />
         <Stack.Screen name="SoilInfo" component={SoilInfo} />
       </Stack.Navigator>
+      <BottomNav />
     </NavigationContainer>
   );
 }

@@ -1,32 +1,32 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Platform, TouchableWithoutFeedback } from 'react-native';
 
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
-    if (Platform.OS !== 'web') {
-      const timer = setTimeout(() => {
-        navigation.navigate('Language');
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
+    // Remove automatic navigation: require user to tap "Tap to continue".
+    // Previously we auto-navigated to Language after 2s on native.
+    // Keeping the effect empty so splash remains until user action.
   }, []);
 
   return (
-    <ScrollView
-      style={{ flex: 1 }}
-      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff' }}
-      keyboardShouldPersistTaps="handled"
-    >
-      <Text style={styles.logo}>🌾</Text>
-      <Text style={styles.title}>Krishi Mitra</Text>
-      <Text style={styles.subtitle}>Smart Farming, Sustainable Future</Text>
-      <TouchableOpacity 
-        style={styles.skipButton}
-        onPress={() => navigation.navigate('Language')}
+    <TouchableWithoutFeedback onPress={() => navigation.navigate('Language')}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff' }}
+        keyboardShouldPersistTaps="handled"
       >
-        <Text style={styles.skipText}>Tap to continue</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <Text style={styles.logo}>🌾</Text>
+        <Text style={styles.title}>Krishi Mitra</Text>
+        <Text style={styles.subtitle}>Smart Farming, Sustainable Future</Text>
+        <TouchableOpacity 
+          style={styles.skipButton}
+          onPress={() => navigation.navigate('Language')}
+          accessibilityLabel="Continue to language selection"
+        >
+          <Text style={styles.skipText}>Tap to continue</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 }
 

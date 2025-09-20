@@ -8,10 +8,11 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function HomePage({ navigation }) {
+  const insets = useSafeAreaInsets();
   const [weather, setWeather] = useState(null);
   const [loadingWeather, setLoadingWeather] = useState(false);
   const [weatherError, setWeatherError] = useState(null);
@@ -49,7 +50,7 @@ export default function HomePage({ navigation }) {
     <SafeAreaView style={styles.container}>
       {/* Scrollable Content */}
       <ScrollView
-        contentContainerStyle={{ paddingBottom: 140 }}
+        contentContainerStyle={{ paddingBottom: Math.max(140, insets.bottom + 100) }}
         showsVerticalScrollIndicator={false}
       >
         {/* Header Section */}
@@ -104,7 +105,7 @@ export default function HomePage({ navigation }) {
               <View style={styles.weatherItem}>
                 <Image
                   source={require('../assets/vector-6.png')}
-                  style={styles.locationIcon}
+                  style={styles.weatherIcon}
                 />
                 <View style={styles.weatherTextContainer}>
                   <Text style={styles.weatherValue}>{Math.round(weather.temp)}°</Text>
@@ -115,7 +116,7 @@ export default function HomePage({ navigation }) {
               <View style={styles.weatherItem}>
                 <Image
                   source={require('../assets/vector-4.png')}
-                  style={styles.locationIcon}
+                  style={styles.weatherIcon}
                 />
                 <View style={styles.weatherTextContainer}>
                   <Text style={styles.weatherValue}>{weather.rain_1h ? weather.rain_1h + 'mm' : '—'}</Text>
@@ -126,7 +127,7 @@ export default function HomePage({ navigation }) {
               <View style={styles.weatherItem}>
                 <Image
                   source={require('../assets/vector-3.png')}
-                  style={styles.locationIcon}
+                  style={styles.weatherIcon}
                 />
                 <View style={styles.weatherTextContainer}>
                   <Text style={styles.weatherValue}>{weather.wind_speed ? weather.wind_speed + ' m/s' : '—'}</Text>
@@ -137,7 +138,7 @@ export default function HomePage({ navigation }) {
               <View style={styles.weatherItem}>
                 <Image
                   source={require('../assets/vector-2.png')}
-                  style={styles.locationIcon}
+                  style={styles.weatherIcon}
                 />
                 <View style={styles.weatherTextContainer}>
                   <Text style={styles.weatherValue}>{weather.humidity}%</Text>
@@ -369,6 +370,12 @@ const styles = StyleSheet.create({
   locationIcon: {
     width: 56,
     height: 56,
+    resizeMode: 'contain',
+    marginBottom: 8,
+  },
+  weatherIcon: {
+    width: 40,
+    height: 40,
     resizeMode: 'contain',
     marginBottom: 8,
   },

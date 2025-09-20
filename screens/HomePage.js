@@ -206,7 +206,7 @@ export default function HomePage({ navigation }) {
               source={require('../assets/calendar.png')}
               style={styles.locationIcon}
             />
-            <Text style={styles.featureText}>कैलेंडर</Text>
+              <Text style={styles.featureText}>फसल कैलेंडर</Text>
           </TouchableOpacity>
 
           {/* New: Irrigation */}
@@ -219,6 +219,30 @@ export default function HomePage({ navigation }) {
               style={styles.locationIcon}
             />
             <Text style={styles.featureText}>सिंचाई</Text>
+          </TouchableOpacity>
+
+          {/* New: Agrochemical */}
+          <TouchableOpacity
+            style={styles.featureButton}
+            onPress={() => navigation.navigate('Agrochemical')}
+          >
+            <Image
+              source={require('../assets/vector-3.png')}
+              style={styles.locationIcon}
+            />
+            <Text style={styles.featureText}>Agrochemical</Text>
+          </TouchableOpacity>
+
+          {/* New: Government Schemes */}
+          <TouchableOpacity
+            style={styles.featureButton}
+            onPress={() => navigation.navigate('GovSchemes')}
+          >
+            <Image
+              source={require('../assets/vector-4.png')}
+              style={styles.locationIcon}
+            />
+            <Text style={styles.featureText}>Government Schemes</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

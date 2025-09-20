@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Alert,
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { checkRainForRange } from '../utils/weather';
 
 export default function Calendar({ navigation }) {
   useEffect(() => {
@@ -108,6 +109,16 @@ export default function Calendar({ navigation }) {
         createdAt: new Date().toISOString(),
         watered: false,
       };
+      // best-effort check for rain during first irrigation window
+      try {
+        if (entry.schedule && entry.schedule.firstIrrigation) {
+          const r = await checkRainForRange(entry.schedule.firstIrrigation.from, entry.schedule.firstIrrigation.to);
+          entry.postponeDueToRain = !!r.postpone;
+          entry.rainDetails = r.details ? r.details.slice(0,5) : null;
+        }
+      } catch (e) {
+        // ignore
+      }
       existing.unshift(entry);
       await AsyncStorage.setItem(key, JSON.stringify(existing));
       return entry;

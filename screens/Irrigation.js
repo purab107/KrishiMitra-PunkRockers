@@ -100,6 +100,11 @@ export default function Irrigation({ navigation, route }) {
             return (
               <View key={s.id} style={[styles.scheduleCard, isHighlight ? styles.highlightCard : null]}>
                 <View style={{ flex: 1 }}>
+                      {s.postponeDueToRain ? (
+                        <View style={{ backgroundColor: '#FFF3E0', padding: 6, borderRadius: 8, alignSelf: 'flex-start', marginBottom: 6 }}>
+                          <Text style={{ color: '#E65100', fontWeight: '700' }}>बारिश संभावना — स्थगित करें</Text>
+                        </View>
+                      ) : null}
                   <Text style={styles.cropName}>{s.crop}</Text>
                   <Text style={styles.sowDate}>बोई गई: {s.sowDate}</Text>
                   {next ? (

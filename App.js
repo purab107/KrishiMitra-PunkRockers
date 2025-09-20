@@ -20,6 +20,8 @@ import MarketPrices from './screens/MarketPrices';
 import SoilInfo from './screens/SoilInfo';
 import Calendar from './screens/Calendar';
 import Irrigation from './screens/Irrigation';
+import Agrochemical from './screens/Agrochemical';
+import GovSchemes from './screens/GovSchemes';
 
 const Stack = createStackNavigator();
 export const navigationRef = createNavigationContainerRef();
@@ -80,6 +82,8 @@ export default function App() {
         <Stack.Screen name="SoilInfo" component={SoilInfo} />
         <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="Irrigation" component={Irrigation} />
+        <Stack.Screen name="Agrochemical" component={Agrochemical} />
+        <Stack.Screen name="GovSchemes" component={GovSchemes} />
       </Stack.Navigator>
       {showBottomNav && <BottomNav />}
     </NavigationContainer>

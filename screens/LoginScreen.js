@@ -12,6 +12,8 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
+import Card from '../frontend/components/ui/Card';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -71,22 +73,14 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.forgotPasswordText}>पासवर्ड भूल गए?</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity 
-          style={[styles.signInButton, isLoading && styles.disabledButton]}
-          onPress={handleLogin}
-          disabled={isLoading}
-        >
-          <Text style={styles.signInButtonText}>
-            {isLoading ? 'लॉगिन हो रहा है...' : 'लॉगिन करें'}
-          </Text>
-        </TouchableOpacity>
+        <PrimaryButton title={isLoading ? 'लॉगिन हो रहा है...' : 'लॉगिन करें'} onPress={handleLogin} disabled={isLoading} />
 
         {/* Demo Credentials Helper */}
-        <View style={styles.demoHelper}>
+        <Card style={styles.demoHelper}>
           <Text style={styles.demoText}>डेमो विवरण:</Text>
           <Text style={styles.demoCredentials}>उपयोगकर्ता नाम: User</Text>
           <Text style={styles.demoCredentials}>पासवर्ड: Password</Text>
-        </View>
+        </Card>
         
         <View style={styles.orContainer}>
           <View style={styles.orLine} />

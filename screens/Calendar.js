@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Alert,
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
+import Card from '../frontend/components/ui/Card';
 import { checkRainForRange } from '../utils/weather';
 
 export default function Calendar({ navigation }) {
@@ -137,7 +139,7 @@ export default function Calendar({ navigation }) {
           <Text style={styles.help}>यहाँ आप अपनी फसल कैलेंडर और नोट्स देख सकते हैं।</Text>
         </View>
 
-        <View style={styles.formCard}>
+  <Card style={styles.formCard}>
           <Text style={styles.label}>🌱  फसल का नाम</Text>
           <TextInput
             placeholder="उदा. धान"
@@ -202,14 +204,14 @@ export default function Calendar({ navigation }) {
           )}
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 12 }}>
-            <TouchableOpacity style={styles.ghostButton} onPress={onUseToday}>
-              <Text style={styles.ghostText}>आज का उपयोग करें</Text>
+            <TouchableOpacity style={{flex:1, marginRight:8}} onPress={onUseToday}>
+              <View style={styles.ghostButton}><Text style={styles.ghostText}>आज का उपयोग करें</Text></View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.primaryButton} onPress={onCompute}>
-              <Text style={styles.primaryText}>सिंचाई देखें</Text>
-            </TouchableOpacity>
+            <View style={{flex:1, marginLeft:8}}>
+              <PrimaryButton title={'सिंचाई देखें'} onPress={onCompute} />
+            </View>
           </View>
-        </View>
+        </Card>
 
         {schedule && (
           <View style={styles.scheduleContainer}>

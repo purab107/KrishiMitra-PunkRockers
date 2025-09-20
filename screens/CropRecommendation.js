@@ -1,14 +1,42 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BOTTOM_NAV_HEIGHT } from '../components/BottomNav';
 
 export default function CropRecommendation({ navigation }) {
+  const insets = useSafeAreaInsets();
+  const scrollRef = useRef(null);
   const [showPrices, setShowPrices] = React.useState(false);
   const [showPricesMaize, setShowPricesMaize] = React.useState(false);
   const [showPricesPigeon, setShowPricesPigeon] = React.useState(false);
+  useEffect(() => {
+    // When any price panel opens, scroll to bottom so expanded content is visible
+    if (showPrices || showPricesMaize || showPricesPigeon) {
+      // small timeout to allow layout to update
+      setTimeout(() => {
+        try {
+          scrollRef.current?.scrollToEnd({ animated: true });
+        } catch (e) {
+          // ignore
+        }
+      }, 80);
+    }
+  }, [showPrices, showPricesMaize, showPricesPigeon]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{padding: 24}}>
+  <ScrollView
+    ref={scrollRef}
+    style={{ flex: 1 }}
+    contentContainerStyle={{padding: 24, paddingBottom: Math.max(160, insets.bottom + BOTTOM_NAV_HEIGHT + 20)}}
+    contentInset={{ bottom: BOTTOM_NAV_HEIGHT }}
+    contentInsetAdjustmentBehavior="always"
+    nestedScrollEnabled={true}
+    showsVerticalScrollIndicator={true}
+    alwaysBounceVertical={true}
+    keyboardShouldPersistTaps="handled"
+    overScrollMode="always"
+  >
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
           <Text style={styles.backButtonText}>← वापस</Text>
         </TouchableOpacity>
@@ -67,8 +95,8 @@ export default function CropRecommendation({ navigation }) {
           )}
         </View>
 
-        {/* Option 2: Pigeon Pea */}
-        <View style={[styles.weatherCard, {marginTop: 12, marginBottom: 20}]}> 
+  {/* Option 2: Pigeon Pea */}
+  <View style={[styles.weatherCard, {marginTop: 12, marginBottom: Math.max(20, insets.bottom + 20)}]}> 
           <Text style={styles.weatherTitle}>विकल्प: <Text style={{color:'#4A7C59', fontWeight:'bold'}}>अरहर / तुअर</Text></Text>
           <View style={{marginVertical: 8}}>
             <Text style={styles.weatherLabel}>अपेक्षित उपज: <Text style={styles.weatherValue}>~9 क्विंटल/एकड़</Text></Text>
@@ -92,6 +120,8 @@ export default function CropRecommendation({ navigation }) {
             </View>
           )}
         </View>
+        {/* spacer to ensure last content is tappable above BottomNav */}
+        <View style={{ height: Math.max(BOTTOM_NAV_HEIGHT, insets.bottom + 24) }} />
       </ScrollView>
     </SafeAreaView>
   );

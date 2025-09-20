@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
+import Card from '../frontend/components/ui/Card';
 
 export default function HomePage({ navigation }) {
   const insets = useSafeAreaInsets();
@@ -84,8 +86,8 @@ export default function HomePage({ navigation }) {
           <Text style={styles.welcomeText}>स्वागत है, किसान!</Text>
         </View>
 
-        {/* Weather Card */}
-        <View style={styles.weatherCard}>
+  {/* Weather Card */}
+  <Card style={styles.weatherCard}>
           <Text style={styles.weatherTitle}>मौसम जानकारी</Text>
 
           <View style={styles.locationRow}>
@@ -149,30 +151,16 @@ export default function HomePage({ navigation }) {
           ) : (
             <Text>मौसम उपलब्ध नहीं है</Text>
           )}
-        </View>
+  </Card>
 
         {/* Main Feature Buttons */}
         <View style={styles.featuresGrid}>
-          <TouchableOpacity
-            style={styles.featureButton}
-            onPress={() => navigation.navigate('CropRecommendation')}
-          >
-            <Image
-              source={require('../assets/vector-1.png')}
-              style={styles.locationIcon}
-            />
-            <Text style={styles.featureText}>फसल अनुशंसा</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('CropRecommendation')} style={{alignItems:'center'}}>
+            <PrimaryButton title={'फसल अनुशंसा'} onPress={() => navigation.navigate('CropRecommendation')} />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.featureButton}
-            onPress={() => navigation.navigate('MarketPrices')}
-          >
-            <Image
-              source={require('../assets/vector-9.png')}
-              style={styles.locationIcon}
-            />
-            <Text style={styles.featureText}>बाज़ार भाव देखें</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('MarketPrices')} style={{alignItems:'center'}}>
+            <PrimaryButton title={'बाज़ार भाव देखें'} onPress={() => navigation.navigate('MarketPrices')} />
           </TouchableOpacity>
 
           <TouchableOpacity

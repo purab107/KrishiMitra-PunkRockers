@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { navigationRef } from '../App';
 
+export const BOTTOM_NAV_HEIGHT = 88;
+
 export default function BottomNav() {
   const nav = navigationRef;
 

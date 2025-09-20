@@ -15,22 +15,22 @@ export default function BottomNav() {
   return (
     <View style={styles.bottomNav}>
       <TouchableOpacity style={styles.navItem} onPress={() => go('Home')}>
-        <Icon name="home" size={26} color="#4CAF50" />
+        <Icon name="home" size={26} color="#ffffffff" />
         <Text style={[styles.navText, styles.activeNavText]}>मुख्य पृष्ठ</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.navItem} onPress={() => go('AIChat')}>
-        <Icon name="chat-processing" size={26} color="#777" />
+        <Icon name="chat-processing" size={26} color="#ffffffff" />
         <Text style={styles.navText}>एआई चैट</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.navItem} onPress={() => go('Forecast')}>
-        <Icon name="weather-cloudy" size={26} color="#777" />
+        <Icon name="weather-cloudy" size={26} color="#ffffffff" />
         <Text style={styles.navText}>मौसम पूर्वानुमान</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.navItem} onPress={() => go('Profile')}>
-        <Icon name="account" size={26} color="#777" />
+        <Icon name="account" size={26} color="#ffffffff" />
         <Text style={styles.navText}>मेरा प्रोफ़ाइल</Text>
       </TouchableOpacity>
     </View>

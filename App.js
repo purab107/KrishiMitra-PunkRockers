@@ -5,6 +5,7 @@ import * as Linking from 'expo-linking';
 import { Platform } from 'react-native';
 import { createNavigationContainerRef } from '@react-navigation/native';
 import BottomNav from './components/BottomNav';
+import { useState, useCallback } from 'react';
 
 // Import your screens
 import SplashScreen from './screens/SplashScreen';
@@ -45,8 +46,24 @@ export default function App() {
   // On native, keep Splash as the initial route to show the launch experience.
   const initialRoute = Platform.OS === 'web' ? undefined : 'Splash';
 
+  const [showBottomNav, setShowBottomNav] = useState(true);
+
+  const hiddenRoutes = ['Splash', 'Language', 'Login', 'SignUp'];
+
+  const onNavStateChange = useCallback((state) => {
+    // state is the navigation state object; get active route name reliably
+    const index = state?.index ?? navigationRef.current?.getRootState?.()?.index;
+    const routeName = state?.routes?.[index]?.name ?? navigationRef.current?.getCurrentRoute?.()?.name;
+    setShowBottomNav(!(hiddenRoutes.includes(routeName)));
+  }, []);
+
+  const onReady = useCallback(() => {
+    const name = navigationRef.current?.getCurrentRoute?.()?.name;
+    setShowBottomNav(!(hiddenRoutes.includes(name)));
+  }, []);
+
   return (
-    <NavigationContainer linking={linking} ref={navigationRef}>
+  <NavigationContainer linking={linking} ref={navigationRef} onStateChange={onNavStateChange} onReady={onReady}>
       <Stack.Navigator 
         initialRouteName={initialRoute}
         screenOptions={{ headerShown: false }}
@@ -64,7 +81,7 @@ export default function App() {
         <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="Irrigation" component={Irrigation} />
       </Stack.Navigator>
-      <BottomNav />
+      {showBottomNav && <BottomNav />}
     </NavigationContainer>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { Colors } from '../frontend/constants/theme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { navigationRef } from '../App';
 
@@ -16,25 +17,25 @@ export default function BottomNav() {
 
   return (
     <View style={styles.bottomNav}>
-      <TouchableOpacity style={styles.navItem} onPress={() => go('Home')}>
-        <Icon name="home" size={26} color="#ffffffff" />
+      <Pressable style={styles.navItem} onPress={() => go('Home')}>
+        <Icon name="home" size={26} color={Colors.light.surfaceText || '#fff'} />
         <Text style={[styles.navText, styles.activeNavText]}>मुख्य पृष्ठ</Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity style={styles.navItem} onPress={() => go('AIChat')}>
-        <Icon name="chat-processing" size={26} color="#ffffffff" />
+      <Pressable style={styles.navItem} onPress={() => go('AIChat')}>
+        <Icon name="chat-processing" size={26} color={Colors.light.surfaceText || '#fff'} />
         <Text style={styles.navText}>एआई चैट</Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity style={styles.navItem} onPress={() => go('Forecast')}>
-        <Icon name="weather-cloudy" size={26} color="#ffffffff" />
+      <Pressable style={styles.navItem} onPress={() => go('Forecast')}>
+        <Icon name="weather-cloudy" size={26} color={Colors.light.surfaceText || '#fff'} />
         <Text style={styles.navText}>मौसम पूर्वानुमान</Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity style={styles.navItem} onPress={() => go('Profile')}>
-        <Icon name="account" size={26} color="#ffffffff" />
+      <Pressable style={styles.navItem} onPress={() => go('Profile')}>
+        <Icon name="account" size={26} color={Colors.light.surfaceText || '#fff'} />
         <Text style={styles.navText}>मेरा प्रोफ़ाइल</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }
@@ -42,15 +43,16 @@ export default function BottomNav() {
 const styles = StyleSheet.create({
   bottomNav: {
     position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
+    left: 12,
+    right: 12,
+    bottom: 12,
     backgroundColor: '#4A7C59',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 12,
-    paddingBottom: 20,
-    elevation: 12,
+    paddingVertical: 10,
+    paddingBottom: 14,
+    borderRadius: 18,
+    elevation: 16,
     zIndex: 999,
   },
   navItem: {

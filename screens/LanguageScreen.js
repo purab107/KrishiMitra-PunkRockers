@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 
 const languages = [
   { code: 'hi', name: 'हिन्दी' },
@@ -29,7 +29,7 @@ export default function LanguageScreen({ navigation }) {
       
       <ScrollView style={styles.languageContainer}>
         {languages.map((lang) => (
-          <TouchableOpacity
+          <Pressable
             key={lang.code}
             style={[
               styles.languageButton,
@@ -43,7 +43,7 @@ export default function LanguageScreen({ navigation }) {
             ]}>
               {lang.name}
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </ScrollView>
     </View>

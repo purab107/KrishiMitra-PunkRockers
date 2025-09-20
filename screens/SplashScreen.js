@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Platform, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Platform, TouchableWithoutFeedback } from 'react-native';
 
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
@@ -18,13 +18,13 @@ export default function SplashScreen({ navigation }) {
         <Text style={styles.logo}>🌾</Text>
         <Text style={styles.title}>Krishi Mitra</Text>
         <Text style={styles.subtitle}>Smart Farming, Sustainable Future</Text>
-        <TouchableOpacity 
+        <Pressable 
           style={styles.skipButton}
           onPress={() => navigation.navigate('Language')}
           accessibilityLabel="Continue to language selection"
         >
           <Text style={styles.skipText}>Tap to continue</Text>
-        </TouchableOpacity>
+        </Pressable>
       </ScrollView>
     </TouchableWithoutFeedback>
   );

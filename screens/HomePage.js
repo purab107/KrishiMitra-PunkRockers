@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   Image,
   ActivityIndicator,
@@ -12,6 +12,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 import Card from '../frontend/components/ui/Card';
+import FeatureTile from '../frontend/components/ui/FeatureTile';
 
 export default function HomePage({ navigation }) {
   const insets = useSafeAreaInsets();
@@ -72,7 +73,7 @@ export default function HomePage({ navigation }) {
               <Text style={styles.appTitle}>कृषि मित्र</Text>
               <Text style={styles.tagline}>स्मार्ट खेती, टिकाऊ भविष्य</Text>
             </View>
-            <TouchableOpacity
+            <Pressable
               style={styles.profileButton}
               onPress={() => navigation.navigate('Profile')}
               accessibilityLabel="Open profile"
@@ -81,7 +82,7 @@ export default function HomePage({ navigation }) {
                   source={require('../assets/Avatars.png')}
                   style={{ width: 64, height: 64, resizeMode: 'contain' }}
               />
-            </TouchableOpacity>
+            </Pressable>
           </View>
           <Text style={styles.welcomeText}>स्वागत है, किसान!</Text>
         </View>
@@ -155,83 +156,25 @@ export default function HomePage({ navigation }) {
 
         {/* Main Feature Buttons */}
         <View style={styles.featuresGrid}>
-          <TouchableOpacity onPress={() => navigation.navigate('CropRecommendation')} style={{alignItems:'center'}}>
-            <PrimaryButton title={'फसल अनुशंसा'} onPress={() => navigation.navigate('CropRecommendation')} />
-          </TouchableOpacity>
+          <FeatureTile title={'फसल अनुशंसा'} icon={require('../assets/vector-1.png')} onPress={() => navigation.navigate('CropRecommendation')} />
 
-          <TouchableOpacity onPress={() => navigation.navigate('MarketPrices')} style={{alignItems:'center'}}>
-            <PrimaryButton title={'बाज़ार भाव देखें'} onPress={() => navigation.navigate('MarketPrices')} />
-          </TouchableOpacity>
+          <FeatureTile title={'बाज़ार भाव'} icon={require('../assets/vector-9.png')} onPress={() => navigation.navigate('MarketPrices')} />
 
-          <TouchableOpacity
-            style={styles.featureButton}
-            onPress={() => navigation.navigate('SoilInfo')}
-          >
-            <Image
-              source={require('../assets/vector-8.png')}
-              style={styles.locationIcon}
-            />
-            <Text style={styles.featureText}>मिट्टी की जानकारी</Text>
-          </TouchableOpacity>
+          <FeatureTile title={'मिट्टी की जानकारी'} icon={require('../assets/vector-8.png')} onPress={() => navigation.navigate('SoilInfo')} />
 
-          <TouchableOpacity
-            style={styles.featureButton}
-            onPress={() => navigation.navigate('VoiceAssistant')}
-          >
-            <Image
-              source={require('../assets/vector-7.png')}
-              style={styles.locationIcon}
-            />
-            <Text style={styles.featureText}>वॉइस एआई सहायक</Text>
-          </TouchableOpacity>
+          <FeatureTile title={'वॉइस एआई सहायक'} icon={require('../assets/vector-7.png')} onPress={() => navigation.navigate('VoiceAssistant')} />
 
           {/* New: Calendar */}
-          <TouchableOpacity
-            style={styles.featureButton}
-            onPress={() => navigation.navigate('Calendar')}
-          >
-            <Image
-              source={require('../assets/calendar.png')}
-              style={styles.locationIcon}
-            />
-              <Text style={styles.featureText}>फसल कैलेंडर</Text>
-          </TouchableOpacity>
+          <FeatureTile title={'फसल कैलेंडर'} icon={require('../assets/calendar.png')} onPress={() => navigation.navigate('Calendar')} />
 
           {/* New: Irrigation */}
-          <TouchableOpacity
-            style={styles.featureButton}
-            onPress={() => navigation.navigate('Irrigation')}
-          >
-            <Image
-              source={require('../assets/watering-plants.png')}
-              style={styles.locationIcon}
-            />
-            <Text style={styles.featureText}>सिंचाई</Text>
-          </TouchableOpacity>
+          <FeatureTile title={'सिंचाई'} icon={require('../assets/watering-plants.png')} onPress={() => navigation.navigate('Irrigation')} />
 
           {/* New: Agrochemical */}
-          <TouchableOpacity
-            style={styles.featureButton}
-            onPress={() => navigation.navigate('Agrochemical')}
-          >
-            <Image
-              source={require('../assets/vector-3.png')}
-              style={styles.locationIcon}
-            />
-            <Text style={styles.featureText}>Agrochemical</Text>
-          </TouchableOpacity>
+          <FeatureTile title={'Agrochemical'} icon={require('../assets/vector-3.png')} onPress={() => navigation.navigate('Agrochemical')} />
 
           {/* New: Government Schemes */}
-          <TouchableOpacity
-            style={styles.featureButton}
-            onPress={() => navigation.navigate('GovSchemes')}
-          >
-            <Image
-              source={require('../assets/vector-4.png')}
-              style={styles.locationIcon}
-            />
-            <Text style={styles.featureText}>Government Schemes</Text>
-          </TouchableOpacity>
+          <FeatureTile title={'Government Schemes'} icon={require('../assets/vector-4.png')} onPress={() => navigation.navigate('GovSchemes')} />
         </View>
       </ScrollView>
 

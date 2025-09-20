@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 
 export default function SoilInfo({ navigation }) {
   const [location, setLocation] = useState('Raipur');
@@ -18,9 +19,9 @@ export default function SoilInfo({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" size={22} color="#fff" />
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.headerTitle}>मिट्टी जानकारी</Text>
       </View>
 
@@ -35,18 +36,16 @@ export default function SoilInfo({ navigation }) {
           <Text style={styles.label}>मिट्टी संरचना</Text>
           <View style={styles.row}>
             {['Sandy', 'Loam', 'Clay'].map(t => (
-              <TouchableOpacity key={t} onPress={() => setTexture(t)} style={[styles.chip, texture === t && styles.chipActive]}>
+              <Pressable key={t} onPress={() => setTexture(t)} style={[styles.chip, texture === t && styles.chipActive]}>
                 <Text style={[styles.chipText, texture === t && styles.chipTextActive]}>{t}</Text>
-              </TouchableOpacity>
+              </Pressable>
             ))}
           </View>
 
           <Text style={styles.label}>कार्बनिक पदार्थ (%)</Text>
           <TextInput value={organic} onChangeText={setOrganic} keyboardType="numeric" style={styles.input} />
 
-          <TouchableOpacity style={styles.button} onPress={analyze}>
-            <Text style={styles.buttonText}>नमूना विश्लेषण करें</Text>
-          </TouchableOpacity>
+          <PrimaryButton title={'नमूना विश्लेषण करें'} onPress={analyze} style={styles.button} />
         </View>
 
         {resultsVisible && (

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 
 export default function Irrigation({ navigation, route }) {
   const [schedules, setSchedules] = useState([]);
@@ -59,17 +60,17 @@ export default function Irrigation({ navigation, route }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{padding:24}}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
+        <Pressable style={styles.backButton} onPress={() => navigation.navigate('Home')}>
           <Text style={styles.backButtonText}>← वापस</Text>
-        </TouchableOpacity>
+        </Pressable>
         
         <View style={styles.headerRow}>
           <View style={styles.header}>
             <Text style={styles.title}>सिंचाई समय</Text>
             <Text style={styles.help}>यहाँ आप सिंचाई अनुसूची और सुझाव देख सकते हैं।</Text>
           </View>
-          <TouchableOpacity
-            style={[styles.backButton, { marginTop: 6, backgroundColor: '#C62828' }]}
+          <PrimaryButton
+            title="सभी हटाएँ"
             onPress={() => {
               Alert.alert('पुष्टि', 'क्या आप सभी शेड्यूल हटाना चाहते हैं?', [
                 { text: 'रद्द करें', style: 'cancel' },
@@ -84,9 +85,8 @@ export default function Irrigation({ navigation, route }) {
                 } }
               ]);
             }}
-          >
-            <Text style={{ color: '#fff', fontWeight: '700' }}>सभी हटाएँ</Text>
-          </TouchableOpacity>
+            style={{ marginTop: 6 }}
+          />
         </View>
 
         {schedules.length === 0 ? (
@@ -115,14 +115,12 @@ export default function Irrigation({ navigation, route }) {
                 </View>
                 <View style={{ justifyContent: 'center' }}>
                   {!s.watered ? (
-                    <TouchableOpacity style={styles.waterButton} onPress={() => {
+                    <PrimaryButton title="मार्क करें" onPress={() => {
                       Alert.alert('पुष्टि', 'क्या आप इस शेड्यूल को हटाना चाहते हैं?', [
                         { text: 'नहीं', style: 'cancel' },
                         { text: 'हाँ', onPress: () => markWatered(s.id) }
                       ]);
-                    }}>
-                      <Text style={styles.waterText}>मार्क करें</Text>
-                    </TouchableOpacity>
+                    }} style={styles.waterButton} />
                   ) : (
                     <Text style={{ color: '#DFF6E4' }}>सिंचाई पूर्ण</Text>
                   )}

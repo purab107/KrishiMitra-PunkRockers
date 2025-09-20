@@ -14,7 +14,7 @@ export default function PrimaryButton({ title, onPress, style, disabled }: Props
     <TouchableOpacity
       onPress={onPress}
       style={[styles.button, style, disabled ? styles.disabled : null]}
-      activeOpacity={0.85}
+      activeOpacity={0.9}
       disabled={disabled}
     >
       <Text style={styles.text}>{title}</Text>
@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     borderRadius: 10,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    elevation: 6,
   },
   text: {
     color: '#fff',

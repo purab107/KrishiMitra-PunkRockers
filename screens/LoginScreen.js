@@ -3,7 +3,7 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
   Image,
   Alert,
@@ -69,9 +69,9 @@ export default function LoginScreen({ navigation }) {
           secureTextEntry
         />
         
-        <TouchableOpacity style={styles.forgotPassword}>
+        <Pressable style={styles.forgotPassword} onPress={() => Alert.alert('रिमाइंडर', 'पासवर्ड रीसेट फीचर लागू नहीं हुआ है')}>
           <Text style={styles.forgotPasswordText}>पासवर्ड भूल गए?</Text>
-        </TouchableOpacity>
+        </Pressable>
         
         <PrimaryButton title={isLoading ? 'लॉगिन हो रहा है...' : 'लॉगिन करें'} onPress={handleLogin} disabled={isLoading} />
 
@@ -88,14 +88,14 @@ export default function LoginScreen({ navigation }) {
           <View style={styles.orLine} />
         </View>
         
-        <TouchableOpacity 
+        <Pressable 
           style={styles.signUpLink}
           onPress={() => navigation.navigate('SignUp')}
         >
           <Text style={styles.signUpLinkText}>
             क्या आपका अकाउंट नहीं है? <Text style={styles.signUpLinkBold}>साइन अप करें</Text>
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
       </ScrollView>
     </KeyboardAvoidingView>

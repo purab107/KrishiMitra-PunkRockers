@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BOTTOM_NAV_HEIGHT } from '../components/BottomNav';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
+import FeatureTile from '../frontend/components/ui/FeatureTile';
 
 export default function CropRecommendation({ navigation }) {
   const insets = useSafeAreaInsets();
@@ -37,9 +39,9 @@ export default function CropRecommendation({ navigation }) {
     keyboardShouldPersistTaps="handled"
     overScrollMode="always"
   >
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
+        <Pressable style={styles.backButton} onPress={() => navigation.navigate('Home')}>
           <Text style={styles.backButtonText}>← वापस</Text>
-        </TouchableOpacity>
+        </Pressable>
         <View style={styles.header}>
           <Text style={styles.appTitle}>फसल अनुशंसा</Text>
           <Text style={styles.tagline}>एआई-आधारित अनुशंसा परिणाम</Text>
@@ -52,12 +54,8 @@ export default function CropRecommendation({ navigation }) {
             <Text style={styles.weatherLabel}>सस्टेनेबिलिटी स्कोर: <Text style={styles.weatherValue}>8/10 (मिट्टी के लिए अच्छा)</Text></Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 16}}>
-            <TouchableOpacity style={styles.featureButton}>
-              <Text style={styles.featureText}>🔊 सुनें</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.featureButton} onPress={()=>setShowPrices(!showPrices)}>
-              <Text style={styles.featureText}>मंडी भाव देखें</Text>
-            </TouchableOpacity>
+            <PrimaryButton title={'🔊 सुनें'} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
+            <PrimaryButton title={'मंडी भाव देखें'} onPress={()=>setShowPrices(!showPrices)} style={{ flex: 1, marginLeft: 8 }} />
           </View>
           {showPrices && (
             <View style={{marginTop:16, backgroundColor:'#E8F5E8', borderRadius:12, padding:12}}>
@@ -78,12 +76,8 @@ export default function CropRecommendation({ navigation }) {
             <Text style={styles.weatherLabel}>सस्टेनेबिलिटी: <Text style={styles.weatherValue}>7/10</Text></Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 8}}>
-            <TouchableOpacity style={styles.featureButton}>
-              <Text style={styles.featureText}>🔊 सुनें</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.featureButton} onPress={()=>setShowPricesMaize(!showPricesMaize)}>
-              <Text style={styles.featureText}>मंडी भाव देखें</Text>
-            </TouchableOpacity>
+            <PrimaryButton title={'🔊 सुनें'} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
+            <PrimaryButton title={'मंडी भाव देखें'} onPress={()=>setShowPricesMaize(!showPricesMaize)} style={{ flex: 1, marginLeft: 8 }} />
           </View>
           {showPricesMaize && (
             <View style={{marginTop:12, backgroundColor:'#E8F5E8', borderRadius:12, padding:12}}>
@@ -104,12 +98,8 @@ export default function CropRecommendation({ navigation }) {
             <Text style={styles.weatherLabel}>सस्टेनेबिलिटी: <Text style={styles.weatherValue}>9/10</Text></Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 8}}>
-            <TouchableOpacity style={styles.featureButton}>
-              <Text style={styles.featureText}>🔊 सुनें</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.featureButton} onPress={()=>setShowPricesPigeon(!showPricesPigeon)}>
-              <Text style={styles.featureText}>मंडी भाव देखें</Text>
-            </TouchableOpacity>
+            <PrimaryButton title={'🔊 सुनें'} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
+            <PrimaryButton title={'मंडी भाव देखें'} onPress={()=>setShowPricesPigeon(!showPricesPigeon)} style={{ flex: 1, marginLeft: 8 }} />
           </View>
           {showPricesPigeon && (
             <View style={{marginTop:12, backgroundColor:'#E8F5E8', borderRadius:12, padding:12}}>

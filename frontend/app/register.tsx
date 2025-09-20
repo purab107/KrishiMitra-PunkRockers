@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
+import PrimaryButton from "../components/ui/PrimaryButton";
 import { useRouter } from "expo-router";
 
 export default function RegisterPage() {
@@ -21,7 +22,7 @@ export default function RegisterPage() {
       <TextInput style={styles.input} placeholder="Phone number" keyboardType="phone-pad" value={phone} onChangeText={setPhone} />
       <TextInput style={styles.input} placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
 
-      <Button title="Register" onPress={handleRegister} />
+  <PrimaryButton title="Register" onPress={handleRegister} />
     </ScrollView>
   );
 }

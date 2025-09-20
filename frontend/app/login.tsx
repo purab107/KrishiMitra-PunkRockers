@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
+import PrimaryButton from "../components/ui/PrimaryButton";
 import { useRouter } from "expo-router";
 
 export default function LoginScreen() {
@@ -25,8 +26,9 @@ export default function LoginScreen() {
         onChangeText={setPassword}
       />
 
-      <Button title="Login" onPress={() => router.replace("/(tabs)")} />
-      <Button title="Register" onPress={() => router.push("/register")} />
+  <PrimaryButton title="Login" onPress={() => router.replace("/(tabs)")} />
+  <View style={{ height: 10 }} />
+  <PrimaryButton title="Register" onPress={() => router.push("/register")} />
     </ScrollView>
   );
 }

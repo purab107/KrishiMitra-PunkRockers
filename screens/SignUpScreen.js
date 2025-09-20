@@ -3,11 +3,12 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
   Alert,
   ScrollView,
 } from 'react-native';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 
 export default function SignUpScreen({ navigation }) {
   const [fullName, setFullName] = useState('');
@@ -24,12 +25,12 @@ export default function SignUpScreen({ navigation }) {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity 
+        <Pressable 
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
           <Text style={styles.backText}>← वापस जाएँ</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.logo}>🌾</Text>
         <Text style={styles.title}>कृषि मित्र</Text>
       </View>
@@ -64,20 +65,15 @@ export default function SignUpScreen({ navigation }) {
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
-        <TouchableOpacity 
-          style={styles.signUpButton}
-          onPress={handleSignUp}
-        >
-          <Text style={styles.signUpButtonText}>साइन अप करें</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
+        <PrimaryButton title={'साइन अप करें'} onPress={handleSignUp} style={styles.signUpButton} />
+        <Pressable 
           style={styles.signInLink}
           onPress={() => navigation.navigate('Login')}
         >
           <Text style={styles.signInLinkText}>
             क्या आपका पहले से अकाउंट है? <Text style={styles.signInLinkBold}>लॉगिन करें</Text>
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </ScrollView>
   );

@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, TextInput, Modal, Pressable } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, Pressable, TextInput, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 
 export default function MarketPrices({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -32,9 +33,9 @@ export default function MarketPrices({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" size={22} color="#fff" />
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.title}>मंडी भाव</Text>
       </View>
       <View style={styles.body}>
@@ -46,10 +47,7 @@ export default function MarketPrices({ navigation }) {
           style={styles.search}
           clearButtonMode="while-editing"
           />
-          <TouchableOpacity style={styles.dropdownButton} onPress={() => setCropModalVisible(true)}>
-            <Text style={styles.dropdownButtonText}>{selectedCrop === 'All' ? 'All Crops' : selectedCrop}</Text>
-            <Icon name="menu-down" size={18} color="#fff" />
-          </TouchableOpacity>
+          <PrimaryButton title={selectedCrop === 'All' ? 'All Crops' : selectedCrop} onPress={() => setCropModalVisible(true)} style={styles.dropdownButton} />
         </View>
         {loading ? (
           <ActivityIndicator />
@@ -162,9 +160,7 @@ export default function MarketPrices({ navigation }) {
                   </Pressable>
                 )}
               />
-              <TouchableOpacity style={styles.modalClose} onPress={() => setCropModalVisible(false)}>
-                <Text style={styles.modalCloseText}>Close</Text>
-              </TouchableOpacity>
+              <PrimaryButton title="Close" onPress={() => setCropModalVisible(false)} style={styles.modalClose} />
             </View>
           </View>
         </Modal>

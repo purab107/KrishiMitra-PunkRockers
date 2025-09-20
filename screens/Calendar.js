@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Alert, Platform } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, TextInput, Alert, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -131,9 +131,9 @@ export default function Calendar({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
   <ScrollView contentContainerStyle={{padding:24, paddingBottom: Math.max(120, insets.bottom + 80)}}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
+        <Pressable style={styles.backButton} onPress={() => navigation.navigate('Home')}>
           <Text style={styles.backButtonText}>← वापस</Text>
-        </TouchableOpacity>
+        </Pressable>
         <View style={styles.header}>
           <Text style={styles.title}>कैलेंडर</Text>
           <Text style={styles.help}>यहाँ आप अपनी फसल कैलेंडर और नोट्स देख सकते हैं।</Text>
@@ -150,7 +150,7 @@ export default function Calendar({ navigation }) {
 
           <Text style={styles.label}>📅  बोने की तिथि (YYYY-MM-DD)</Text>
           {!manualDateMode ? (
-            <TouchableOpacity
+            <Pressable
               style={[styles.inputRounded, { justifyContent: 'center' }]}
               onPress={() => {
                 // initialize picker with current value if present
@@ -161,7 +161,7 @@ export default function Calendar({ navigation }) {
               }}
             >
               <Text style={{ color: sowDateText ? '#111' : '#888' }}>{sowDateText || 'टैप करें और तारीख चुनें'}</Text>
-            </TouchableOpacity>
+            </Pressable>
           ) : (
             <TextInput
               placeholder="2025-09-20"
@@ -172,9 +172,9 @@ export default function Calendar({ navigation }) {
           )}
 
           <View style={{ flexDirection: 'row', marginTop: 8, alignItems: 'center' }}>
-            <TouchableOpacity onPress={() => setManualDateMode(m => !m)} style={{ marginRight: 12 }}>
+            <Pressable onPress={() => setManualDateMode(m => !m)} style={{ marginRight: 12 }}>
               <Text style={{ color: '#2E7D32', fontWeight: '700' }}>{manualDateMode ? 'कैलेंडर से चुनें' : 'टाइप करके भरें'}</Text>
-            </TouchableOpacity>
+            </Pressable>
             <Text style={{ color: '#666' }}>(यदि कैलेंडर नहीं खुलता तो टाइप करें)</Text>
           </View>
 
@@ -204,9 +204,9 @@ export default function Calendar({ navigation }) {
           )}
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 12 }}>
-            <TouchableOpacity style={{flex:1, marginRight:8}} onPress={onUseToday}>
-              <View style={styles.ghostButton}><Text style={styles.ghostText}>आज का उपयोग करें</Text></View>
-            </TouchableOpacity>
+            <View style={{flex:1, marginRight:8}}>
+              <PrimaryButton title={'आज का उपयोग करें'} onPress={onUseToday} style={styles.ghostButton} />
+            </View>
             <View style={{flex:1, marginLeft:8}}>
               <PrimaryButton title={'सिंचाई देखें'} onPress={onCompute} />
             </View>

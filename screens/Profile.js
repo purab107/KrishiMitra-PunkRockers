@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, Pressable } from 'react-native';
+import PrimaryButton from '../frontend/components/ui/PrimaryButton';
+import { Colors } from '../frontend/constants/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Profile({ navigation }) {
@@ -49,13 +51,15 @@ export default function Profile({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
           <Text style={styles.backText}>←</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.title}>मेरा प्रोफ़ाइल</Text>
-        <TouchableOpacity style={styles.editButton} onPress={() => (editing ? save() : setEditing(true))}>
-          <Text style={styles.editButtonText}>{editing ? 'Save' : 'Edit'}</Text>
-        </TouchableOpacity>
+        <PrimaryButton
+          title={editing ? 'Save' : 'Edit'}
+          onPress={() => (editing ? save() : setEditing(true))}
+          style={{ paddingHorizontal: 10, paddingVertical: 6, alignSelf: 'flex-end', backgroundColor: 'transparent' }}
+        />
       </View>
 
       <View style={styles.body}>
@@ -79,9 +83,7 @@ export default function Profile({ navigation }) {
         )}
 
         {!editing && (
-          <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-            <Text style={styles.buttonText}>वापस</Text>
-          </TouchableOpacity>
+          <PrimaryButton title="वापस" onPress={() => navigation.goBack()} style={{ marginTop: 20 }} />
         )}
       </View>
     </SafeAreaView>

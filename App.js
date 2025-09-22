@@ -66,7 +66,7 @@ export default function App() {
   }, []);
 
   return (
-  <NavigationContainer linking={linking} ref={navigationRef} onStateChange={onNavStateChange} onReady={onReady}>
+    <NavigationContainer linking={linking} ref={navigationRef} onStateChange={onNavStateChange} onReady={onReady}>
       <Stack.Navigator 
         initialRouteName={initialRoute}
         screenOptions={{ headerShown: false }}

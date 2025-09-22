@@ -20,6 +20,26 @@ export default function HomePage({ navigation }) {
   const [loadingWeather, setLoadingWeather] = useState(false);
   const [weatherError, setWeatherError] = useState(null);
 
+  // Temporary translation function until we implement react-i18next
+  const t = (key) => {
+    const translations = {
+      temperature: 'तापमान',
+      rainfall: 'वर्षा',
+      wind: 'हवा',
+      humidity: 'नमी',
+      weatherNotAvailable: 'मौसम की जानकारी उपलब्ध नहीं है',
+      cropRecommendation: 'फसल सुझाव',
+      marketPrices: 'बाजार भाव',
+      soilInfo: 'मिट्टी की जानकारी',
+      aiAssistant: 'AI सहायक',
+      cropCalendar: 'फसल कैलेंडर',
+      irrigation: 'सिंचाई',
+      agrochemical: 'कृषि रसायन',
+      govSchemes: 'सरकारी योजनाएं'
+    };
+    return translations[key] || key;
+  };
+
   useEffect(() => {
     // Fetch weather for Raipur (fallback) from backend proxy
     const fetchWeather = async () => {
@@ -64,10 +84,12 @@ export default function HomePage({ navigation }) {
                 <Image
                   source={require('../frontend/assets/images/emblem.png')}
                   style={styles.emblem}
+                  resizeMode="contain"
                 />
                 <Image
                   source={require('../frontend/assets/images/Group 3 1.png')}
                   style={styles.emblemBadge}
+                  resizeMode="contain"
                 />
               </View>
               <Text style={styles.appTitle}>कृषि मित्र</Text>
@@ -80,16 +102,17 @@ export default function HomePage({ navigation }) {
             >
               <Image
                   source={require('../assets/Avatars.png')}
-                  style={{ width: 64, height: 64, resizeMode: 'contain' }}
+                  style={{ width: 64, height: 64 }}
+                  resizeMode="contain"
               />
             </Pressable>
           </View>
           <Text style={styles.welcomeText}>स्वागत है, किसान!</Text>
         </View>
 
-  {/* Weather Card */}
-  <Card style={styles.weatherCard}>
-          <Text style={styles.weatherTitle}>मौसम जानकारी</Text>
+        {/* Weather Card */}
+        <Card style={styles.weatherCard}>
+          <Text style={styles.weatherTitle}>मौसम की जानकारी</Text>
 
           <View style={styles.locationRow}>
             <Image
@@ -109,10 +132,11 @@ export default function HomePage({ navigation }) {
                 <Image
                   source={require('../assets/vector-6.png')}
                   style={styles.weatherIcon}
+                  resizeMode="contain"
                 />
                 <View style={styles.weatherTextContainer}>
                   <Text style={styles.weatherValue}>{Math.round(weather.temp)}°</Text>
-                  <Text style={styles.weatherLabel}>सेल्सियस</Text>
+                  <Text style={styles.weatherLabel}>{t('temperature')}</Text>
                 </View>
               </View>
 
@@ -120,10 +144,11 @@ export default function HomePage({ navigation }) {
                 <Image
                   source={require('../assets/vector-4.png')}
                   style={styles.weatherIcon}
+                  resizeMode="contain"
                 />
                 <View style={styles.weatherTextContainer}>
                   <Text style={styles.weatherValue}>{weather.rain_1h ? weather.rain_1h + 'mm' : '—'}</Text>
-                  <Text style={styles.weatherLabel}>वर्षा</Text>
+                  <Text style={styles.weatherLabel}>{t('rainfall')}</Text>
                 </View>
               </View>
 
@@ -131,10 +156,11 @@ export default function HomePage({ navigation }) {
                 <Image
                   source={require('../assets/vector-3.png')}
                   style={styles.weatherIcon}
+                  resizeMode="contain"
                 />
                 <View style={styles.weatherTextContainer}>
                   <Text style={styles.weatherValue}>{weather.wind_speed ? weather.wind_speed + ' m/s' : '—'}</Text>
-                  <Text style={styles.weatherLabel}>हवा</Text>
+                  <Text style={styles.weatherLabel}>{t('wind')}</Text>
                 </View>
               </View>
 
@@ -142,75 +168,71 @@ export default function HomePage({ navigation }) {
                 <Image
                   source={require('../assets/vector-2.png')}
                   style={styles.weatherIcon}
+                  resizeMode="contain"
                 />
                 <View style={styles.weatherTextContainer}>
                   <Text style={styles.weatherValue}>{weather.humidity}%</Text>
-                  <Text style={styles.weatherLabel}>नमी</Text>
+                  <Text style={styles.weatherLabel}>{t('humidity')}</Text>
                 </View>
               </View>
             </View>
           ) : (
-            <Text>मौसम उपलब्ध नहीं है</Text>
+            <Text>{t('weatherNotAvailable')}</Text>
           )}
-  </Card>
+        </Card>
 
         {/* Main Feature Buttons */}
         <View style={styles.featuresGrid}>
           {/* Core Farming Features */}
           <FeatureTile 
-            title={'फसल अनुशंसा'} 
+            title={t('cropRecommendation')} 
             icon={require('../assets/vector-1.png')} 
             onPress={() => navigation.navigate('CropRecommendation')} 
           />
           
           <FeatureTile 
-            title={'फसल कैलेंडर'} 
-            icon={require('../assets/calendar.png')} 
-            onPress={() => navigation.navigate('Calendar')} 
-          />
-
-          <FeatureTile 
-            title={'मिट्टी की जानकारी'} 
-            icon={require('../assets/vector-8.png')} 
-            onPress={() => navigation.navigate('SoilInfo')} 
-          />
-
-          <FeatureTile 
-            title={'सिंचाई प्रबंधन'} 
-            icon={require('../assets/watering-plants.png')} 
-            onPress={() => navigation.navigate('Irrigation')} 
-          />
-
-          {/* Market & Business */}
-          <FeatureTile 
-            title={'बाज़ार भाव'} 
+            title={t('marketPrices')} 
             icon={require('../assets/vector-9.png')} 
             onPress={() => navigation.navigate('MarketPrices')} 
           />
 
           <FeatureTile 
-            title={'सरकारी योजनाएं'} 
+            title={t('soilInfo')} 
+            icon={require('../assets/vector-8.png')} 
+            onPress={() => navigation.navigate('SoilInfo')} 
+          />
+
+          <FeatureTile 
+            title={t('aiAssistant')} 
+            icon={require('../assets/vector-7.png')} 
+            onPress={() => navigation.navigate('VoiceAssistant')} 
+          />
+
+          <FeatureTile 
+            title={t('cropCalendar')} 
+            icon={require('../assets/calendar.png')} 
+            onPress={() => navigation.navigate('Calendar')} 
+          />
+
+          <FeatureTile 
+            title={t('irrigation')} 
+            icon={require('../assets/watering-plants.png')} 
+            onPress={() => navigation.navigate('Irrigation')} 
+          />
+
+          <FeatureTile 
+            title={t('govSchemes')} 
             icon={require('../assets/vector-4.png')} 
             onPress={() => navigation.navigate('GovSchemes')} 
           />
 
-          {/* Advanced Features */}
           <FeatureTile 
-            title={'कृषि रसायन'} 
+            title={t('agrochemical')} 
             icon={require('../assets/vector-3.png')} 
             onPress={() => navigation.navigate('Agrochemical')} 
           />
-
-          <FeatureTile 
-            title={'AI सहायक'} 
-            icon={require('../assets/vector-7.png')} 
-            onPress={() => navigation.navigate('VoiceAssistant')} 
-          />
         </View>
       </ScrollView>
-
-
-
     </SafeAreaView>
   );
 }
@@ -243,24 +265,29 @@ const styles = StyleSheet.create({
   emblem: {
     width: 64,
     height: 64,
-    resizeMode: 'contain',
   },
   emblemBadge: {
     width: 64,
     height: 64,
-    resizeMode: 'contain',
     marginLeft: 10,
   },
   appTitle: {
     color: '#fff',
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 5,
+    fontSize: 26,
+    fontWeight: '800',
+    marginTop: 6,
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   tagline: {
     color: '#E8F5E8',
-    fontSize: 14,
-    marginTop: 2,
+    fontSize: 15,
+    marginTop: 3,
+    fontWeight: '500',
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
   profileButton: {
     padding: 8,
@@ -269,26 +296,33 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     color: '#fff',
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 30,
+    fontWeight: '800',
+    textShadowColor: 'rgba(0,0,0,0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   weatherCard: {
     backgroundColor: '#fff',
     marginHorizontal: 20,
     marginBottom: 20,
-    borderRadius: 20,
-    padding: 20,
-    elevation: 8,
+    borderRadius: 28,
+    padding: 28,
+    elevation: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
+    transform: [{ translateY: -6 }],
   },
   weatherTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 8,
+    fontSize: 26,
+    fontWeight: '800',
+    color: '#2E3A59',
+    marginBottom: 12,
+    textAlign: 'center',
   },
   locationIcon2: {
     backgroundColor: '#4A90E2',
@@ -313,11 +347,16 @@ const styles = StyleSheet.create({
   weatherItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#4A90E2',
-    borderRadius: 15,
-    padding: 15,
+    backgroundColor: '#4FC3F7',
+    borderRadius: 18,
+    padding: 18,
     width: '48%',
     marginBottom: 12,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
   },
   weatherTextContainer: {
     marginLeft: 12,
@@ -357,13 +396,11 @@ const styles = StyleSheet.create({
   locationIcon: {
     width: 56,
     height: 56,
-    resizeMode: 'contain',
     marginBottom: 8,
   },
   weatherIcon: {
     width: 40,
     height: 40,
-    resizeMode: 'contain',
     marginBottom: 8,
   },
   featureText: {

@@ -13,59 +13,59 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { width } = Dimensions.get('window');
 
-const tutorialSteps = [
-  {
-    id: 1,
-    title: 'कृषि मित्र में आपका स्वागत है!',
-    subtitle: 'स्मार्ट खेती के लिए आपका डिजिटल साथी',
-    description: 'यह ऐप आपको बेहतर फसल, मौसम की जानकारी, और कृषि सलाह प्रदान करता है।',
-    icon: 'handshake',
-    color: '#4A90E2',
-  },
-  {
-    id: 2,
-    title: 'मुख्य विशेषताएं',
-    subtitle: 'आपकी खेती के लिए उपयोगी टूल्स',
-    description: 'फसल अनुशंसा, मौसम जानकारी, बाज़ार भाव, और सिंचाई प्रबंधन - सब एक जगह।',
-    icon: 'feature-search',
-    color: '#2E7D32',
-  },
-  {
-    id: 3,
-    title: 'आसान नेवीगेशन',
-    subtitle: 'सरल और समझने योग्य इंटरफेस',
-    description: 'होम स्क्रीन पर टाइल्स दबाकर विभिन्न सुविधाओं तक पहुंचें। प्रत्येक टाइल एक अलग फीचर खोलता है।',
-    icon: 'view-grid',
-    color: '#FF9800',
-  },
-  {
-    id: 4,
-    title: 'व्यक्तिगत डैशबोर्ड',
-    subtitle: 'आपकी जरूरतों के अनुसार जानकारी',
-    description: 'मौसम, कैलेंडर, और महत्वपूर्ण अपडेट्स आपके होम पेज पर उपलब्ध हैं।',
-    icon: 'view-dashboard',
-    color: '#9C27B0',
-  },
-  {
-    id: 5,
-    title: 'AI सहायक',
-    subtitle: 'आवाज़ से पूछें, तुरंत जवाब पाएं',
-    description: 'वॉइस एआई सहायक का उपयोग करके अपनी कृषि संबंधी समस्याओं का समाधान पाएं।',
-    icon: 'microphone',
-    color: '#E91E63',
-  },
-  {
-    id: 6,
-    title: 'शुरू करने के लिए तैयार!',
-    subtitle: 'अब आप ऐप का उपयोग करने के लिए तैयार हैं',
-    description: 'होम पेज पर जाकर किसी भी फीचर को चुनें और अपनी कृषि यात्रा शुरू करें।',
-    icon: 'rocket-launch',
-    color: '#8BCD45',
-  },
-];
-
-export default function AppTutorialScreen({ navigation }) {
+const AppTutorialScreen = ({ navigation }) => {
   const [currentStep, setCurrentStep] = useState(0);
+
+  const tutorialSteps = [
+    {
+      id: 1,
+      title: 'कृषि मित्र में आपका स्वागत है!',
+      subtitle: 'स्मार्ट खेती के लिए आपका डिजिटल साथी',
+      description: 'यह ऐप आपको बेहतर फसल, मौसम की जानकारी और कृषि सलाह प्रदान करता है।',
+      icon: 'handshake',
+      color: '#4A90E2',
+    },
+    {
+      id: 2,
+      title: 'मुख्य विशेषताएं',
+      subtitle: 'आपकी खेती के लिए उपयोगी उपकरण',
+      description: 'फसल सुझाव, मौसम की जानकारी, बाजार भाव, और सिंचाई प्रबंधन - सब एक जगह।',
+      icon: 'feature-search',
+      color: '#2E7D32',
+    },
+    {
+      id: 3,
+      title: 'फसल सुझाव',
+      subtitle: 'सबसे अच्छी फसल चुनें',
+      description: 'मिट्टी, मौसम और क्षेत्र के आधार पर सबसे उपयुक्त फसल की सलाह पाएं।',
+      icon: 'view-grid',
+      color: '#FF9800',
+    },
+    {
+      id: 4,
+      title: 'मौसम पूर्वानुमान',
+      subtitle: 'समय से पहले तैयारी करें',
+      description: 'सटीक मौसम जानकारी के साथ अपनी खेती की योजना बनाएं।',
+      icon: 'view-dashboard',
+      color: '#9C27B0',
+    },
+    {
+      id: 5,
+      title: 'बाज़ार की जानकारी',
+      subtitle: 'सही समय पर बेचें',
+      description: 'वर्तमान बाज़ार भाव देखें और अपनी फसल बेचने का सही समय जानें।',
+      icon: 'microphone',
+      color: '#E91E63',
+    },
+    {
+      id: 6,
+      title: 'मौसम और बाजार की जानकारी',
+      subtitle: 'हमेशा अपडेट रहें',
+      description: 'वर्तमान मौसम और स्थानीय मंडी भाव की जानकारी पाएं',
+      icon: 'rocket-launch',
+      color: '#8BCD45',
+    },
+  ];
 
   const nextStep = () => {
     if (currentStep < tutorialSteps.length - 1) {
@@ -85,13 +85,26 @@ export default function AppTutorialScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       {/* Skip Button */}
-      <TouchableOpacity style={styles.skipButton} onPress={skipTutorial}>
+      <TouchableOpacity 
+        style={styles.skipButton} 
+        onPress={skipTutorial}
+        accessibilityRole="button"
+        accessibilityLabel="ट्यूटोरियल छोड़ें"
+        accessibilityHint="ट्यूटोरियल को छोड़कर सीधे लॉगिन पेज पर जाएं"
+      >
         <Text style={styles.skipText}>छोड़ें</Text>
       </TouchableOpacity>
 
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView 
+        contentContainerStyle={styles.scrollContainer}
+        accessibilityRole="scrollbar"
+      >
         {/* Progress Indicator */}
-        <View style={styles.progressContainer}>
+        <View 
+          style={styles.progressContainer}
+          accessibilityRole="progressbar"
+          accessibilityLabel={`ट्यूटोरियल प्रगति: ${currentStep + 1} में से ${tutorialSteps.length}`}
+        >
           {tutorialSteps.map((_, index) => (
             <View
               key={index}
@@ -100,43 +113,90 @@ export default function AppTutorialScreen({ navigation }) {
                 index === currentStep && styles.progressDotActive,
                 index < currentStep && styles.progressDotCompleted,
               ]}
+              accessibilityElementsHidden={true}
+              importantForAccessibility="no"
             />
           ))}
         </View>
 
         {/* Main Content */}
-        <View style={styles.contentContainer}>
+        <View 
+          style={styles.contentContainer}
+          accessibilityRole="main"
+          accessibilityLabel={currentTutorial.title}
+        >
           {/* Icon */}
-          <View style={[styles.iconContainer, { backgroundColor: currentTutorial.color }]}>
+          <View 
+            style={[styles.iconContainer, { backgroundColor: currentTutorial.color }]}
+            accessibilityElementsHidden={true}
+            importantForAccessibility="no"
+          >
             <Icon name={currentTutorial.icon} size={60} color="#fff" />
           </View>
 
           {/* Title */}
-          <Text style={styles.title}>{currentTutorial.title}</Text>
+          <Text 
+            style={styles.title}
+            accessibilityRole="header"
+            accessibilityLevel={1}
+          >
+            {currentTutorial.title}
+          </Text>
           
           {/* Subtitle */}
-          <Text style={styles.subtitle}>{currentTutorial.subtitle}</Text>
+          <Text 
+            style={styles.subtitle}
+            accessibilityRole="header"
+            accessibilityLevel={2}
+          >
+            {currentTutorial.subtitle}
+          </Text>
 
           {/* Description */}
-          <Text style={styles.description}>{currentTutorial.description}</Text>
+          <Text 
+            style={styles.description}
+            accessibilityRole="text"
+          >
+            {currentTutorial.description}
+          </Text>
 
           {/* Feature Preview (for certain steps) */}
           {currentStep === 2 && (
-            <View style={styles.previewContainer}>
+            <View 
+              style={styles.previewContainer}
+              accessibilityRole="group"
+              accessibilityLabel="ऐप की मुख्य सुविधाओं का पूर्वावलोकन"
+            >
               <View style={styles.previewGrid}>
-                <View style={styles.previewTile}>
+                <View 
+                  style={styles.previewTile}
+                  accessibilityRole="button"
+                  accessibilityLabel="फसल सुविधा"
+                >
                   <Icon name="seed" size={24} color="#4A90E2" />
                   <Text style={styles.previewText}>फसल</Text>
                 </View>
-                <View style={styles.previewTile}>
+                <View 
+                  style={styles.previewTile}
+                  accessibilityRole="button" 
+                  accessibilityLabel="मौसम सुविधा"
+                >
                   <Icon name="weather-cloudy" size={24} color="#4A90E2" />
                   <Text style={styles.previewText}>मौसम</Text>
                 </View>
-                <View style={styles.previewTile}>
+                <View 
+                  style={styles.previewTile}
+                  accessibilityRole="button"
+                  accessibilityLabel="बाज़ार सुविधा"
+                >
                   <Icon name="chart-line" size={24} color="#4A90E2" />
                   <Text style={styles.previewText}>बाज़ार</Text>
                 </View>
-                <View style={styles.previewTile}>
+                <View 
+                  style={styles.previewTile}
+                  accessibilityRole="button"
+                  accessibilityLabel="सिंचाई सुविधा"
+                >
                   <Icon name="water" size={24} color="#4A90E2" />
                   <Text style={styles.previewText}>सिंचाई</Text>
                 </View>
@@ -147,9 +207,19 @@ export default function AppTutorialScreen({ navigation }) {
       </ScrollView>
 
       {/* Navigation Buttons */}
-      <View style={styles.buttonContainer}>
+      <View 
+        style={styles.buttonContainer}
+        accessibilityRole="toolbar"
+        accessibilityLabel="ट्यूटोरियल नेवीगेशन"
+      >
         {currentStep > 0 && (
-          <TouchableOpacity style={styles.backButton} onPress={() => setCurrentStep(currentStep - 1)}>
+          <TouchableOpacity 
+            style={styles.backButton} 
+            onPress={() => setCurrentStep(currentStep - 1)}
+            accessibilityRole="button"
+            accessibilityLabel="पिछला स्टेप"
+            accessibilityHint="पिछले ट्यूटोरियल स्टेप पर जाएं"
+          >
             <Text style={styles.backButtonText}>पीछे</Text>
           </TouchableOpacity>
         )}
@@ -157,6 +227,9 @@ export default function AppTutorialScreen({ navigation }) {
         <TouchableOpacity 
           style={[styles.nextButton, { backgroundColor: currentTutorial.color }]} 
           onPress={nextStep}
+          accessibilityRole="button"
+          accessibilityLabel={currentStep === tutorialSteps.length - 1 ? 'ट्यूटोरियल पूरा करें' : 'अगला स्टेप'}
+          accessibilityHint={currentStep === tutorialSteps.length - 1 ? 'ट्यूटोरियल समाप्त करके लॉगिन पेज पर जाएं' : 'अगले ट्यूटोरियल स्टेप पर जाएं'}
         >
           <Text style={styles.nextButtonText}>
             {currentStep === tutorialSteps.length - 1 ? 'शुरू करें' : 'आगे'}
@@ -166,6 +239,8 @@ export default function AppTutorialScreen({ navigation }) {
             size={20} 
             color="#fff" 
             style={{ marginLeft: 8 }}
+            accessibilityElementsHidden={true}
+            importantForAccessibility="no"
           />
         </TouchableOpacity>
       </View>
@@ -325,3 +400,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default AppTutorialScreen;

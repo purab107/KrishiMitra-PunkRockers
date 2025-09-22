@@ -23,7 +23,8 @@
     "react-native-screens": "~4.16.0",
     "react-native-vector-icons": "^10.3.0",
     "react-native-web": "^0.21.0",
-    "@react-native-community/datetimepicker": "8.4.4"
+    "@react-native-community/datetimepicker": "8.4.4",
+    "expo-linear-gradient": "~15.0.7"
   },
   "private": true,
   "devDependencies": {

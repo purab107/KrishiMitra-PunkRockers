@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   disabled: {
-    backgroundColor: '#A0A0A0',
+    backgroundColor: '#0054b5ff',
   },
 });

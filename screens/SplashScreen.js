@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView, Platform, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Platform } from 'react-native';
 
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
@@ -9,7 +9,7 @@ export default function SplashScreen({ navigation }) {
   }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate('Language')}>
+    <Pressable onPress={() => navigation.navigate('Language')} style={{ flex: 1 }}>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff' }}
@@ -26,7 +26,7 @@ export default function SplashScreen({ navigation }) {
           <Text style={styles.skipText}>Tap to continue</Text>
         </Pressable>
       </ScrollView>
-    </TouchableWithoutFeedback>
+    </Pressable>
   );
 }
 

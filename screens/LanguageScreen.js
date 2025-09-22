@@ -5,7 +5,7 @@ const languages = [
   { code: 'hi', name: 'हिन्दी' },
   { code: 'en', name: 'English' },
   { code: 'bn', name: 'বাংলা' },
-  { code: 'ta', name: 'தமிழ்' },
+  { code: 'ta', name: 'தমিழ்' },
   { code: 'te', name: 'తెలుగు' },
   { code: 'mr', name: 'मराठी' },
 ];
@@ -13,8 +13,10 @@ const languages = [
 export default function LanguageScreen({ navigation }) {
   const [selected, setSelected] = useState('hi');
 
-  const selectLanguage = (langCode) => {
+  const selectLanguage = async (langCode) => {
     setSelected(langCode);
+    // For now, just navigate to tutorial
+    // Language selection will be implemented with react-i18next
     setTimeout(() => {
       navigation.navigate('AppTutorial');
     }, 500);

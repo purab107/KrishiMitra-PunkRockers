@@ -19,12 +19,12 @@ export default function BottomNav() {
     <View style={styles.bottomNav}>
       <Pressable style={styles.navItem} onPress={() => go('Home')}>
         <Icon name="home" size={26} color={Colors.light.surfaceText || '#fff'} />
-        <Text style={[styles.navText, styles.activeNavText]}>मुख्य पृष्ठ</Text>
+        <Text style={[styles.navText, styles.activeNavText]}>होम</Text>
       </Pressable>
 
       <Pressable style={styles.navItem} onPress={() => go('AIChat')}>
         <Icon name="chat-processing" size={26} color={Colors.light.surfaceText || '#fff'} />
-        <Text style={styles.navText}>एआई चैट</Text>
+        <Text style={styles.navText}>AI चैट</Text>
       </Pressable>
 
       <Pressable style={styles.navItem} onPress={() => go('Forecast')}>
@@ -34,7 +34,7 @@ export default function BottomNav() {
 
       <Pressable style={styles.navItem} onPress={() => go('Profile')}>
         <Icon name="account" size={26} color={Colors.light.surfaceText || '#fff'} />
-        <Text style={styles.navText}>मेरा प्रोफ़ाइल</Text>
+        <Text style={styles.navText}>मेरी प्रोफाइल</Text>
       </Pressable>
     </View>
   );

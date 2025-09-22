@@ -1,0 +1,22 @@
+{
+  "appTitle": "कृषि मित्र",
+  "tagline": "स्मार्ट खेती, टिकाऊ भविष्य",
+  "welcomeText": "स्वागत हे, किसान!",
+  "weatherTitle": "मौसम की जानकारी",
+  "temperature": "तापमान",
+  "rainfall": "बारिश", 
+  "wind": "हवा",
+  "humidity": "आर्द्रता",
+  "weatherNotAvailable": "मौसम की जानकारी उपलब्ध नहीं है",
+  "location": "रायपुर, छत्तीसगढ़",
+  "cropRecommendation": "फसल सुझाव",
+  "marketPrices": "बाजार मूल्य",
+  "soilInfo": "मिट्टी की जानकारी",
+  "aiAssistant": "AI सहायक",
+  "cropCalendar": "फसल कैलेंडर",
+  "irrigation": "सिंचाई",
+  "govSchemes": "सरकारी योजनाएं",
+  "agrochemical": "कृषि रसायन",
+  "tapToContinue": "जारी रखने के लिए टैप करें",
+  "continueToLanguageSelection": "भाषा चयन के लिए जारी रखें"
+}

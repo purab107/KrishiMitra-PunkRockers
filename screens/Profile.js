@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, Image, TextInput, Pressable } from 'react-nativ
 import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 import { Colors } from '../frontend/constants/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 export default function Profile({ navigation }) {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState('Demo User');
   const [email, setEmail] = useState('demo@example.com');
   const [phone, setPhone] = useState('+91 90000 00000');
+  const { t } = useTranslation('profile');
 
   // Try to load/save with AsyncStorage if available (optional dependency)
   let AsyncStorage = null;
@@ -54,9 +56,9 @@ export default function Profile({ navigation }) {
         <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
           <Text style={styles.backText}>←</Text>
         </Pressable>
-        <Text style={styles.title}>मेरा प्रोफ़ाइल</Text>
+        <Text style={styles.title}>{t('myProfile')}</Text>
         <PrimaryButton
-          title={editing ? 'Save' : 'Edit'}
+          title={editing ? t('save') : t('edit')}
           onPress={() => (editing ? save() : setEditing(true))}
           style={{ paddingHorizontal: 10, paddingVertical: 6, alignSelf: 'flex-end', backgroundColor: 'transparent' }}
         />
@@ -67,23 +69,23 @@ export default function Profile({ navigation }) {
 
         {editing ? (
           <View style={{ width: '100%', paddingHorizontal: 20 }}>
-            <Text style={styles.label}>नाम</Text>
+            <Text style={styles.label}>{t('name')}</Text>
             <TextInput style={styles.input} value={name} onChangeText={setName} />
-            <Text style={styles.label}>ईमेल</Text>
+            <Text style={styles.label}>{t('email')}</Text>
             <TextInput style={styles.input} value={email} onChangeText={setEmail} keyboardType="email-address" />
-            <Text style={styles.label}>फ़ोन</Text>
+            <Text style={styles.label}>{t('phone')}</Text>
             <TextInput style={styles.input} value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
           </View>
         ) : (
           <>
             <Text style={styles.name}>{name}</Text>
-            <Text style={styles.info}>Email: {email}</Text>
-            <Text style={styles.info}>Phone: {phone}</Text>
+            <Text style={styles.info}>{t('emailLabel')} {email}</Text>
+            <Text style={styles.info}>{t('phoneLabel')} {phone}</Text>
           </>
         )}
 
         {!editing && (
-          <PrimaryButton title="वापस" onPress={() => navigation.goBack()} style={{ marginTop: 20 }} />
+          <PrimaryButton title={t('goBack')} onPress={() => navigation.goBack()} style={{ marginTop: 20 }} />
         )}
       </View>
     </SafeAreaView>

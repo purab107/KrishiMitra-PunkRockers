@@ -1,0 +1,22 @@
+{
+  "appTitle": "Krishi Mitra",
+  "tagline": "Smart Farming, Sustainable Future",
+  "welcomeText": "Welcome, Farmer!",
+  "weatherTitle": "Weather Information",
+  "temperature": "Temperature",
+  "rainfall": "Rainfall",
+  "wind": "Wind",
+  "humidity": "Humidity",
+  "weatherNotAvailable": "Weather information not available",
+  "location": "Raipur, Chhattisgarh",
+  "cropRecommendation": "Crop Recommendation",
+  "marketPrices": "Market Prices",
+  "soilInfo": "Soil Information",
+  "aiAssistant": "AI Assistant",
+  "cropCalendar": "Crop Calendar",
+  "irrigation": "Irrigation",
+  "govSchemes": "Government Schemes",
+  "agrochemical": "Agrochemical",
+  "tapToContinue": "Tap to continue",
+  "continueToLanguageSelection": "Continue to language selection"
+}

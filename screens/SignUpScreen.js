@@ -9,16 +9,18 @@ import {
   ScrollView,
 } from 'react-native';
 import PrimaryButton from '../frontend/components/ui/PrimaryButton';
+import { useTranslation } from 'react-i18next';
 
 export default function SignUpScreen({ navigation }) {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { t } = useTranslation('auth');
 
   const handleSignUp = () => {
-    Alert.alert('डेमो', 'खाता सफलतापूर्वक बनाया गया! (यह सिर्फ़ डेमो है)', [
-      { text: 'ठीक है', onPress: () => navigation.navigate('Login') }
+    Alert.alert(t('demo'), t('accountCreated'), [
+      { text: t('ok'), onPress: () => navigation.navigate('Login') }
     ]);
   };
 
@@ -29,23 +31,23 @@ export default function SignUpScreen({ navigation }) {
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <Text style={styles.backText}>← वापस जाएँ</Text>
+          <Text style={styles.backText}>{t('goBack')}</Text>
         </Pressable>
         <Text style={styles.logo}>🌾</Text>
         <Text style={styles.title}>कृषि मित्र</Text>
       </View>
       <View style={styles.formContainer}>
-        <Text style={styles.signUpText}>साइन अप करें</Text>
+        <Text style={styles.signUpText}>{t('signUp')}</Text>
         <TextInput
           style={styles.input}
-          placeholder="पूरा नाम"
+          placeholder={t('fullNamePlaceholder')}
           value={fullName}
           onChangeText={setFullName}
           autoCapitalize="words"
         />
         <TextInput
           style={styles.input}
-          placeholder="ईमेल"
+          placeholder={t('emailPlaceholder')}
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -53,25 +55,25 @@ export default function SignUpScreen({ navigation }) {
         />
         <TextInput
           style={styles.input}
-          placeholder="पासवर्ड"
+          placeholder={t('passwordPlaceholder')}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
         <TextInput
           style={styles.input}
-          placeholder="पासवर्ड की पुष्टि करें"
+          placeholder={t('confirmPasswordPlaceholder')}
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
-        <PrimaryButton title={'साइन अप करें'} onPress={handleSignUp} style={styles.signUpButton} />
+        <PrimaryButton title={t('signUp')} onPress={handleSignUp} style={styles.signUpButton} />
         <Pressable 
           style={styles.signInLink}
           onPress={() => navigation.navigate('Login')}
         >
           <Text style={styles.signInLinkText}>
-            क्या आपका पहले से अकाउंट है? <Text style={styles.signInLinkBold}>लॉगिन करें</Text>
+            {t('alreadyHaveAccount')} <Text style={styles.signInLinkBold}>{t('loginLink')}</Text>
           </Text>
         </Pressable>
       </View>

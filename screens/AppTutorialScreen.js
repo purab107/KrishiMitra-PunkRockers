@@ -10,58 +10,60 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
 const AppTutorialScreen = ({ navigation }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const { t } = useTranslation('tutorial');
 
   const tutorialSteps = [
     {
       id: 1,
-      title: 'कृषि मित्र में आपका स्वागत है!',
-      subtitle: 'स्मार्ट खेती के लिए आपका डिजिटल साथी',
-      description: 'यह ऐप आपको बेहतर फसल, मौसम की जानकारी और कृषि सलाह प्रदान करता है।',
+      title: t('tutorial1Title'),
+      subtitle: t('tutorial1Subtitle'),
+      description: t('tutorial1Description'),
       icon: 'handshake',
       color: '#4A90E2',
     },
     {
       id: 2,
-      title: 'मुख्य विशेषताएं',
-      subtitle: 'आपकी खेती के लिए उपयोगी उपकरण',
-      description: 'फसल सुझाव, मौसम की जानकारी, बाजार भाव, और सिंचाई प्रबंधन - सब एक जगह।',
+      title: t('tutorial2Title'),
+      subtitle: t('tutorial2Subtitle'),
+      description: t('tutorial2Description'),
       icon: 'feature-search',
       color: '#2E7D32',
     },
     {
       id: 3,
-      title: 'फसल सुझाव',
-      subtitle: 'सबसे अच्छी फसल चुनें',
-      description: 'मिट्टी, मौसम और क्षेत्र के आधार पर सबसे उपयुक्त फसल की सलाह पाएं।',
+      title: t('tutorial3Title'),
+      subtitle: t('tutorial3Subtitle'),
+      description: t('tutorial3Description'),
       icon: 'view-grid',
       color: '#FF9800',
     },
     {
       id: 4,
-      title: 'मौसम पूर्वानुमान',
-      subtitle: 'समय से पहले तैयारी करें',
-      description: 'सटीक मौसम जानकारी के साथ अपनी खेती की योजना बनाएं।',
+      title: t('tutorial4Title'),
+      subtitle: t('tutorial4Subtitle'),
+      description: t('tutorial4Description'),
       icon: 'view-dashboard',
       color: '#9C27B0',
     },
     {
       id: 5,
-      title: 'बाज़ार की जानकारी',
-      subtitle: 'सही समय पर बेचें',
-      description: 'वर्तमान बाज़ार भाव देखें और अपनी फसल बेचने का सही समय जानें।',
+      title: t('tutorial5Title'),
+      subtitle: t('tutorial5Subtitle'),
+      description: t('tutorial5Description'),
       icon: 'microphone',
       color: '#E91E63',
     },
     {
       id: 6,
-      title: 'मौसम और बाजार की जानकारी',
-      subtitle: 'हमेशा अपडेट रहें',
-      description: 'वर्तमान मौसम और स्थानीय मंडी भाव की जानकारी पाएं',
+      title: t('tutorial6Title'),
+      subtitle: t('tutorial6Subtitle'),
+      description: t('tutorial6Description'),
       icon: 'rocket-launch',
       color: '#8BCD45',
     },
@@ -89,10 +91,10 @@ const AppTutorialScreen = ({ navigation }) => {
         style={styles.skipButton} 
         onPress={skipTutorial}
         accessibilityRole="button"
-        accessibilityLabel="ट्यूटोरियल छोड़ें"
+        accessibilityLabel={t('skipTutorial')}
         accessibilityHint="ट्यूटोरियल को छोड़कर सीधे लॉगिन पेज पर जाएं"
       >
-        <Text style={styles.skipText}>छोड़ें</Text>
+        <Text style={styles.skipText}>{t('skip')}</Text>
       </TouchableOpacity>
 
       <ScrollView 
@@ -232,7 +234,7 @@ const AppTutorialScreen = ({ navigation }) => {
           accessibilityHint={currentStep === tutorialSteps.length - 1 ? 'ट्यूटोरियल समाप्त करके लॉगिन पेज पर जाएं' : 'अगले ट्यूटोरियल स्टेप पर जाएं'}
         >
           <Text style={styles.nextButtonText}>
-            {currentStep === tutorialSteps.length - 1 ? 'शुरू करें' : 'आगे'}
+            {currentStep === tutorialSteps.length - 1 ? t('start') : t('next')}
           </Text>
           <Icon 
             name={currentStep === tutorialSteps.length - 1 ? 'check' : 'chevron-right'} 

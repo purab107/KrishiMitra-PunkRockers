@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const languages = [
   { code: 'hi', name: 'हिन्दी' },
@@ -12,11 +13,15 @@ const languages = [
 
 export default function LanguageScreen({ navigation }) {
   const [selected, setSelected] = useState('hi');
+  const { i18n } = useTranslation();
 
   const selectLanguage = async (langCode) => {
     setSelected(langCode);
-    // For now, just navigate to tutorial
-    // Language selection will be implemented with react-i18next
+    
+    // Change language using react-i18next
+    await i18n.changeLanguage(langCode);
+    
+    // Navigate to tutorial after language change
     setTimeout(() => {
       navigation.navigate('AppTutorial');
     }, 500);

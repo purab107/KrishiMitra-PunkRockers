@@ -4,6 +4,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { BOTTOM_NAV_HEIGHT } from '../components/BottomNav';
 import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 import FeatureTile from '../frontend/components/ui/FeatureTile';
+import { useTranslation } from 'react-i18next';
 
 export default function CropRecommendation({ navigation }) {
   const insets = useSafeAreaInsets();
@@ -11,6 +12,7 @@ export default function CropRecommendation({ navigation }) {
   const [showPrices, setShowPrices] = React.useState(false);
   const [showPricesMaize, setShowPricesMaize] = React.useState(false);
   const [showPricesPigeon, setShowPricesPigeon] = React.useState(false);
+  const { t } = useTranslation('crop');
   useEffect(() => {
     // When any price panel opens, scroll to bottom so expanded content is visible
     if (showPrices || showPricesMaize || showPricesPigeon) {
@@ -40,73 +42,73 @@ export default function CropRecommendation({ navigation }) {
     overScrollMode="always"
   >
         <Pressable style={styles.backButton} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.backButtonText}>← वापस</Text>
+          <Text style={styles.backButtonText}>{t('back')}</Text>
         </Pressable>
         <View style={styles.header}>
-          <Text style={styles.appTitle}>फसल अनुशंसा</Text>
-          <Text style={styles.tagline}>एआई-आधारित अनुशंसा परिणाम</Text>
+          <Text style={styles.appTitle}>{t('title')}</Text>
+          <Text style={styles.tagline}>{t('subtitle')}</Text>
         </View>
         <View style={styles.weatherCard}>
-          <Text style={styles.weatherTitle}>अनुशंसित फसल: <Text style={{color:'#4A7C59', fontWeight:'bold'}}>सोयाबीन</Text></Text>
+          <Text style={styles.weatherTitle}>{t('recommendedCrop')} <Text style={{color:'#4A7C59', fontWeight:'bold'}}>{t('crops.soybean')}</Text></Text>
           <View style={{marginVertical: 8}}>
-            <Text style={styles.weatherLabel}>अपेक्षित उपज: <Text style={styles.weatherValue}>~12 क्विंटल/एकड़</Text></Text>
-            <Text style={styles.weatherLabel}>अनुमानित लाभ: <Text style={styles.weatherValue}>₹45,000</Text></Text>
-            <Text style={styles.weatherLabel}>सस्टेनेबिलिटी स्कोर: <Text style={styles.weatherValue}>8/10 (मिट्टी के लिए अच्छा)</Text></Text>
+            <Text style={styles.weatherLabel}>{t('expectedYield')} <Text style={styles.weatherValue}>{t('yields.soybean')}</Text></Text>
+            <Text style={styles.weatherLabel}>{t('estimatedProfit')} <Text style={styles.weatherValue}>{t('profits.soybean')}</Text></Text>
+            <Text style={styles.weatherLabel}>{t('sustainabilityScore')} <Text style={styles.weatherValue}>{t('sustainabilityScores.soybean')} ({t('goodForSoil')})</Text></Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 16}}>
-            <PrimaryButton title={'🔊 सुनें'} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
-            <PrimaryButton title={'मंडी भाव देखें'} onPress={()=>setShowPrices(!showPrices)} style={{ flex: 1, marginLeft: 8 }} />
+            <PrimaryButton title={t('listen')} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
+            <PrimaryButton title={t('viewMarketPrices')} onPress={()=>setShowPrices(!showPrices)} style={{ flex: 1, marginLeft: 8 }} />
           </View>
           {showPrices && (
             <View style={{marginTop:16, backgroundColor:'#E8F5E8', borderRadius:12, padding:12}}>
-              <Text style={{fontWeight:'bold', color:'#4A7C59', marginBottom:4}}>मंडी भाव</Text>
-              <Text>रायपुर: ₹4,200/क्विंटल</Text>
-              <Text>बिलासपुर: ₹4,150/क्विंटल</Text>
-              <Text>राजनांदगांव: ₹4,300/क्विंटल</Text>
+              <Text style={{fontWeight:'bold', color:'#4A7C59', marginBottom:4}}>{t('marketPrices')}</Text>
+              <Text>{t('markets.raipur')} {t('prices.soybeanRaipur')}</Text>
+              <Text>{t('markets.bilaspur')} {t('prices.soybeanBilaspur')}</Text>
+              <Text>{t('markets.rajnandgaon')} {t('prices.soybeanRajnandgaon')}</Text>
             </View>
           )}
         </View>
 
         {/* Option 1: Maize */}
         <View style={[styles.weatherCard, {marginTop: 12}]}> 
-          <Text style={styles.weatherTitle}>विकल्प: <Text style={{color:'#4A7C59', fontWeight:'bold'}}>मक्का</Text></Text>
+          <Text style={styles.weatherTitle}>{t('option')} <Text style={{color:'#4A7C59', fontWeight:'bold'}}>{t('crops.maize')}</Text></Text>
           <View style={{marginVertical: 8}}>
-            <Text style={styles.weatherLabel}>अपेक्षित उपज: <Text style={styles.weatherValue}>~10 क्विंटल/एकड़</Text></Text>
-            <Text style={styles.weatherLabel}>अनुमानित लाभ: <Text style={styles.weatherValue}>₹38,000</Text></Text>
-            <Text style={styles.weatherLabel}>सस्टेनेबिलिटी: <Text style={styles.weatherValue}>7/10</Text></Text>
+            <Text style={styles.weatherLabel}>{t('expectedYield')} <Text style={styles.weatherValue}>{t('yields.maize')}</Text></Text>
+            <Text style={styles.weatherLabel}>{t('estimatedProfit')} <Text style={styles.weatherValue}>{t('profits.maize')}</Text></Text>
+            <Text style={styles.weatherLabel}>{t('sustainability')} <Text style={styles.weatherValue}>{t('sustainabilityScores.maize')}</Text></Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 8}}>
-            <PrimaryButton title={'🔊 सुनें'} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
-            <PrimaryButton title={'मंडी भाव देखें'} onPress={()=>setShowPricesMaize(!showPricesMaize)} style={{ flex: 1, marginLeft: 8 }} />
+            <PrimaryButton title={t('listen')} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
+            <PrimaryButton title={t('viewMarketPrices')} onPress={()=>setShowPricesMaize(!showPricesMaize)} style={{ flex: 1, marginLeft: 8 }} />
           </View>
           {showPricesMaize && (
             <View style={{marginTop:12, backgroundColor:'#E8F5E8', borderRadius:12, padding:12}}>
-              <Text style={{fontWeight:'bold', color:'#4A7C59', marginBottom:4}}>मंडी भाव</Text>
-              <Text>रायपुर: ₹2,500/क्विंटल</Text>
-              <Text>बिलासपुर: ₹2,450/क्विंटल</Text>
-              <Text>राजनांदगांव: ₹2,600/क्विंटल</Text>
+              <Text style={{fontWeight:'bold', color:'#4A7C59', marginBottom:4}}>{t('marketPrices')}</Text>
+              <Text>{t('markets.raipur')} {t('prices.maizeRaipur')}</Text>
+              <Text>{t('markets.bilaspur')} {t('prices.maizeBilaspur')}</Text>
+              <Text>{t('markets.rajnandgaon')} {t('prices.maizeRajnandgaon')}</Text>
             </View>
           )}
         </View>
 
   {/* Option 2: Pigeon Pea */}
   <View style={[styles.weatherCard, {marginTop: 12, marginBottom: Math.max(20, insets.bottom + 20)}]}> 
-          <Text style={styles.weatherTitle}>विकल्प: <Text style={{color:'#4A7C59', fontWeight:'bold'}}>अरहर / तुअर</Text></Text>
+          <Text style={styles.weatherTitle}>{t('option')} <Text style={{color:'#4A7C59', fontWeight:'bold'}}>{t('crops.pigeonPea')}</Text></Text>
           <View style={{marginVertical: 8}}>
-            <Text style={styles.weatherLabel}>अपेक्षित उपज: <Text style={styles.weatherValue}>~9 क्विंटल/एकड़</Text></Text>
-            <Text style={styles.weatherLabel}>अनुमानित लाभ: <Text style={styles.weatherValue}>₹50,000</Text></Text>
-            <Text style={styles.weatherLabel}>सस्टेनेबिलिटी: <Text style={styles.weatherValue}>9/10</Text></Text>
+            <Text style={styles.weatherLabel}>{t('expectedYield')} <Text style={styles.weatherValue}>{t('yields.pigeonPea')}</Text></Text>
+            <Text style={styles.weatherLabel}>{t('estimatedProfit')} <Text style={styles.weatherValue}>{t('profits.pigeonPea')}</Text></Text>
+            <Text style={styles.weatherLabel}>{t('sustainability')} <Text style={styles.weatherValue}>{t('sustainabilityScores.pigeonPea')}</Text></Text>
           </View>
           <View style={{flexDirection:'row', justifyContent:'space-between', marginTop: 8}}>
-            <PrimaryButton title={'🔊 सुनें'} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
-            <PrimaryButton title={'मंडी भाव देखें'} onPress={()=>setShowPricesPigeon(!showPricesPigeon)} style={{ flex: 1, marginLeft: 8 }} />
+            <PrimaryButton title={t('listen')} onPress={() => {}} style={{ flex: 1, marginRight: 8 }} />
+            <PrimaryButton title={t('viewMarketPrices')} onPress={()=>setShowPricesPigeon(!showPricesPigeon)} style={{ flex: 1, marginLeft: 8 }} />
           </View>
           {showPricesPigeon && (
             <View style={{marginTop:12, backgroundColor:'#E8F5E8', borderRadius:12, padding:12}}>
-              <Text style={{fontWeight:'bold', color:'#4A7C59', marginBottom:4}}>मंडी भाव</Text>
-              <Text>रायपुर: ₹6,000/क्विंटल</Text>
-              <Text>बिलासपुर: ₹5,950/क्विंटल</Text>
-              <Text>राजनांदगांव: ₹6,100/क्विंटल</Text>
+              <Text style={{fontWeight:'bold', color:'#4A7C59', marginBottom:4}}>{t('marketPrices')}</Text>
+              <Text>{t('markets.raipur')} {t('prices.pigeonPeaRaipur')}</Text>
+              <Text>{t('markets.bilaspur')} {t('prices.pigeonPeaBilaspur')}</Text>
+              <Text>{t('markets.rajnandgaon')} {t('prices.pigeonPeaRajnandgaon')}</Text>
             </View>
           )}
         </View>

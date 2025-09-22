@@ -1,0 +1,51 @@
+{
+  "title": "Crop Recommendation",
+  "subtitle": "AI-based Recommendation Results",
+  "back": "← Back",
+  "recommendedCrop": "Recommended Crop:",
+  "option": "Option:",
+  "expectedYield": "Expected Yield:",
+  "estimatedProfit": "Estimated Profit:",
+  "sustainability": "Sustainability:",
+  "sustainabilityScore": "Sustainability Score:",
+  "goodForSoil": "Good for Soil",
+  "listen": "🔊 Listen",
+  "viewMarketPrices": "View Market Prices",
+  "marketPrices": "Market Prices",
+  "crops": {
+    "soybean": "Soybean",
+    "maize": "Maize",
+    "pigeonPea": "Pigeon Pea"
+  },
+  "yields": {
+    "soybean": "~12 quintals/acre",
+    "maize": "~10 quintals/acre",
+    "pigeonPea": "~9 quintals/acre"
+  },
+  "profits": {
+    "soybean": "₹45,000",
+    "maize": "₹38,000",
+    "pigeonPea": "₹50,000"
+  },
+  "sustainabilityScores": {
+    "soybean": "8/10",
+    "maize": "7/10",
+    "pigeonPea": "9/10"
+  },
+  "markets": {
+    "raipur": "Raipur:",
+    "bilaspur": "Bilaspur:",
+    "rajnandgaon": "Rajnandgaon:"
+  },
+  "prices": {
+    "soybeanRaipur": "₹4,200/quintal",
+    "soybeanBilaspur": "₹4,150/quintal",
+    "soybeanRajnandgaon": "₹4,300/quintal",
+    "maizeRaipur": "₹2,500/quintal",
+    "maizeBilaspur": "₹2,450/quintal",
+    "maizeRajnandgaon": "₹2,600/quintal",
+    "pigeonPeaRaipur": "₹6,000/quintal",
+    "pigeonPeaBilaspur": "₹5,950/quintal",
+    "pigeonPeaRajnandgaon": "₹6,100/quintal"
+  }
+}

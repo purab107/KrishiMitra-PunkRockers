@@ -14,15 +14,17 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 import Card from '../frontend/components/ui/Card';
+import { useTranslation } from 'react-i18next';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation('auth');
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('त्रुटि', 'कृपया सभी फ़ील्ड भरें');
+      Alert.alert(t('error'), t('fillAllFields'));
       return;
     }
 
@@ -34,7 +36,7 @@ export default function LoginScreen({ navigation }) {
         navigation.navigate('Home');
       }, 1000);
     } else {
-      Alert.alert('अमान्य विवरण', 'उपयोगकर्ता नाम: "User" और पासवर्ड: "Password"');
+      Alert.alert(t('invalidCredentials'), t('demoLoginInfo'));
     }
   };
 
@@ -51,11 +53,11 @@ export default function LoginScreen({ navigation }) {
       </View>
 
       <View style={styles.formContainer}>
-        <Text style={styles.signInText}>लॉगिन करें</Text>
+        <Text style={styles.signInText}>{t('signIn')}</Text>
         
         <TextInput
           style={styles.input}
-          placeholder="ईमेल या उपयोगकर्ता नाम"
+          placeholder={t('emailPlaceholder')}
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
@@ -63,28 +65,28 @@ export default function LoginScreen({ navigation }) {
         
         <TextInput
           style={styles.input}
-          placeholder="पासवर्ड"
+          placeholder={t('passwordPlaceholder')}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
         
-        <Pressable style={styles.forgotPassword} onPress={() => Alert.alert('रिमाइंडर', 'पासवर्ड रीसेट फीचर लागू नहीं हुआ है')}>
-          <Text style={styles.forgotPasswordText}>पासवर्ड भूल गए?</Text>
+        <Pressable style={styles.forgotPassword} onPress={() => Alert.alert(t('passwordResetReminder'), t('passwordResetNotImplemented'))}>
+          <Text style={styles.forgotPasswordText}>{t('forgotPassword')}</Text>
         </Pressable>
         
-        <PrimaryButton title={isLoading ? 'लॉगिन हो रहा है...' : 'लॉगिन करें'} onPress={handleLogin} disabled={isLoading} />
+        <PrimaryButton title={isLoading ? t('loggingIn') : t('loginButton')} onPress={handleLogin} disabled={isLoading} />
 
         {/* Demo Credentials Helper */}
         <Card style={styles.demoHelper}>
-          <Text style={styles.demoText}>डेमो विवरण:</Text>
-          <Text style={styles.demoCredentials}>उपयोगकर्ता नाम: User</Text>
-          <Text style={styles.demoCredentials}>पासवर्ड: Password</Text>
+          <Text style={styles.demoText}>{t('demoCredentials')}</Text>
+          <Text style={styles.demoCredentials}>{t('demoUsername')}</Text>
+          <Text style={styles.demoCredentials}>{t('demoPassword')}</Text>
         </Card>
         
         <View style={styles.orContainer}>
           <View style={styles.orLine} />
-          <Text style={styles.orText}>या इस से लॉगिन करें</Text>
+          <Text style={styles.orText}>{t('orLoginWith')}</Text>
           <View style={styles.orLine} />
         </View>
         
@@ -93,7 +95,7 @@ export default function LoginScreen({ navigation }) {
           onPress={() => navigation.navigate('SignUp')}
         >
           <Text style={styles.signUpLinkText}>
-            क्या आपका अकाउंट नहीं है? <Text style={styles.signUpLinkBold}>साइन अप करें</Text>
+            {t('noAccount')} <Text style={styles.signUpLinkBold}>{t('signUpLink')}</Text>
           </Text>
         </Pressable>
       </View>

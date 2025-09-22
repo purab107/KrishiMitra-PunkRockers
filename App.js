@@ -6,6 +6,7 @@ import { Platform } from 'react-native';
 import { createNavigationContainerRef } from '@react-navigation/native';
 import BottomNav from './components/BottomNav';
 import { useState, useCallback } from 'react';
+import './i18n'; // Initialize i18next
 
 // Import your screens
 import SplashScreen from './screens/SplashScreen';
@@ -46,8 +47,8 @@ const linking = {
 };
 
 export default function App() {
-  // On native, keep Splash as the initial route to show the launch experience.
-  const initialRoute = Platform.OS === 'web' ? undefined : 'Splash';
+  // Always start with Splash screen to ensure proper app flow
+  const initialRoute = 'Splash';
 
   const [showBottomNav, setShowBottomNav] = useState(true);
 
@@ -68,7 +69,7 @@ export default function App() {
   return (
     <NavigationContainer linking={linking} ref={navigationRef} onStateChange={onNavStateChange} onReady={onReady}>
       <Stack.Navigator 
-        initialRouteName={initialRoute}
+        initialRouteName="Splash"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Splash" component={SplashScreen} />

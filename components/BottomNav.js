@@ -3,11 +3,13 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { Colors } from '../frontend/constants/theme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { navigationRef } from '../App';
+import { useTranslation } from 'react-i18next';
 
 export const BOTTOM_NAV_HEIGHT = 88;
 
 export default function BottomNav() {
   const nav = navigationRef;
+  const { t } = useTranslation('navigation');
 
   const go = (name) => {
     if (nav && nav.current && nav.current.isReady && nav.current.isReady()) {
@@ -19,22 +21,22 @@ export default function BottomNav() {
     <View style={styles.bottomNav}>
       <Pressable style={styles.navItem} onPress={() => go('Home')}>
         <Icon name="home" size={26} color={Colors.light.surfaceText || '#fff'} />
-        <Text style={[styles.navText, styles.activeNavText]}>होम</Text>
+        <Text style={[styles.navText, styles.activeNavText]}>{t('homePage')}</Text>
       </Pressable>
 
       <Pressable style={styles.navItem} onPress={() => go('AIChat')}>
         <Icon name="chat-processing" size={26} color={Colors.light.surfaceText || '#fff'} />
-        <Text style={styles.navText}>AI चैट</Text>
+        <Text style={styles.navText}>{t('aiChat')}</Text>
       </Pressable>
 
       <Pressable style={styles.navItem} onPress={() => go('Forecast')}>
         <Icon name="weather-cloudy" size={26} color={Colors.light.surfaceText || '#fff'} />
-        <Text style={styles.navText}>मौसम पूर्वानुमान</Text>
+        <Text style={styles.navText}>{t('weatherForecast')}</Text>
       </Pressable>
 
       <Pressable style={styles.navItem} onPress={() => go('Profile')}>
         <Icon name="account" size={26} color={Colors.light.surfaceText || '#fff'} />
-        <Text style={styles.navText}>मेरी प्रोफाइल</Text>
+        <Text style={styles.navText}>{t('myProfile')}</Text>
       </Pressable>
     </View>
   );

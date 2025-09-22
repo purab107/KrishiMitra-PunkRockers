@@ -13,32 +13,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PrimaryButton from '../frontend/components/ui/PrimaryButton';
 import Card from '../frontend/components/ui/Card';
 import FeatureTile from '../frontend/components/ui/FeatureTile';
+import { useTranslation } from 'react-i18next';
 
 export default function HomePage({ navigation }) {
   const insets = useSafeAreaInsets();
   const [weather, setWeather] = useState(null);
   const [loadingWeather, setLoadingWeather] = useState(false);
   const [weatherError, setWeatherError] = useState(null);
-
-  // Temporary translation function until we implement react-i18next
-  const t = (key) => {
-    const translations = {
-      temperature: 'तापमान',
-      rainfall: 'वर्षा',
-      wind: 'हवा',
-      humidity: 'नमी',
-      weatherNotAvailable: 'मौसम की जानकारी उपलब्ध नहीं है',
-      cropRecommendation: 'फसल सुझाव',
-      marketPrices: 'बाजार भाव',
-      soilInfo: 'मिट्टी की जानकारी',
-      aiAssistant: 'AI सहायक',
-      cropCalendar: 'फसल कैलेंडर',
-      irrigation: 'सिंचाई',
-      agrochemical: 'कृषि रसायन',
-      govSchemes: 'सरकारी योजनाएं'
-    };
-    return translations[key] || key;
-  };
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     // Fetch weather for Raipur (fallback) from backend proxy
@@ -92,8 +74,8 @@ export default function HomePage({ navigation }) {
                   resizeMode="contain"
                 />
               </View>
-              <Text style={styles.appTitle}>कृषि मित्र</Text>
-              <Text style={styles.tagline}>स्मार्ट खेती, टिकाऊ भविष्य</Text>
+              <Text style={styles.appTitle}>{t('appTitle')}</Text>
+              <Text style={styles.tagline}>{t('tagline')}</Text>
             </View>
             <Pressable
               style={styles.profileButton}
@@ -107,19 +89,19 @@ export default function HomePage({ navigation }) {
               />
             </Pressable>
           </View>
-          <Text style={styles.welcomeText}>स्वागत है, किसान!</Text>
+          <Text style={styles.welcomeText}>{t('welcomeText')}</Text>
         </View>
 
         {/* Weather Card */}
         <Card style={styles.weatherCard}>
-          <Text style={styles.weatherTitle}>मौसम की जानकारी</Text>
+          <Text style={styles.weatherTitle}>{t('weatherTitle')}</Text>
 
           <View style={styles.locationRow}>
             <Image
               source={require('../assets/vector-5.png')}
               style={styles.locationIcon2}
             />
-            <Text style={styles.locationText}>रायपुर, छत्तीसगढ़</Text>
+            <Text style={styles.locationText}>{t('location')}</Text>
           </View>
 
           {loadingWeather ? (

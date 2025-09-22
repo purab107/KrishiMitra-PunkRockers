@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Animated, Pressable, Image, Text, StyleSheet, ViewStyle, ImageSourcePropType } from 'react-native';
-import { Colors } from '@/constants/theme';
+import { Colors } from '../../constants/theme';
 
 type Props = {
   title: string;

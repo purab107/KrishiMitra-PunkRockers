@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ViewProps } from 'react-native';
-import { Colors } from '@/constants/theme';
+import { Colors } from '../../constants/theme';
 
 export default function Card({ children, style, ...rest }: ViewProps) {
   return (

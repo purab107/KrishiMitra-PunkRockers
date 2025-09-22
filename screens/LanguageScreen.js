@@ -16,7 +16,7 @@ export default function LanguageScreen({ navigation }) {
   const selectLanguage = (langCode) => {
     setSelected(langCode);
     setTimeout(() => {
-      navigation.navigate('Login');
+      navigation.navigate('AppTutorial');
     }, 500);
   };
 

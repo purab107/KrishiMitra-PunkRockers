@@ -10,6 +10,7 @@ import { useState, useCallback } from 'react';
 // Import your screens
 import SplashScreen from './screens/SplashScreen';
 import LanguageScreen from './screens/LanguageScreen';
+import AppTutorialScreen from './screens/AppTutorialScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import HomePage from './screens/HomePage'; // Add this import
@@ -50,7 +51,7 @@ export default function App() {
 
   const [showBottomNav, setShowBottomNav] = useState(true);
 
-  const hiddenRoutes = ['Splash', 'Language', 'Login', 'SignUp'];
+  const hiddenRoutes = ['Splash', 'Language', 'AppTutorial', 'Login', 'SignUp'];
 
   const onNavStateChange = useCallback((state) => {
     // state is the navigation state object; get active route name reliably
@@ -72,6 +73,7 @@ export default function App() {
       >
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Language" component={LanguageScreen} />
+        <Stack.Screen name="AppTutorial" component={AppTutorialScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Home" component={HomePage} />

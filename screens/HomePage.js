@@ -156,25 +156,56 @@ export default function HomePage({ navigation }) {
 
         {/* Main Feature Buttons */}
         <View style={styles.featuresGrid}>
-          <FeatureTile title={'फसल अनुशंसा'} icon={require('../assets/vector-1.png')} onPress={() => navigation.navigate('CropRecommendation')} />
+          {/* Core Farming Features */}
+          <FeatureTile 
+            title={'फसल अनुशंसा'} 
+            icon={require('../assets/vector-1.png')} 
+            onPress={() => navigation.navigate('CropRecommendation')} 
+          />
+          
+          <FeatureTile 
+            title={'फसल कैलेंडर'} 
+            icon={require('../assets/calendar.png')} 
+            onPress={() => navigation.navigate('Calendar')} 
+          />
 
-          <FeatureTile title={'बाज़ार भाव'} icon={require('../assets/vector-9.png')} onPress={() => navigation.navigate('MarketPrices')} />
+          <FeatureTile 
+            title={'मिट्टी की जानकारी'} 
+            icon={require('../assets/vector-8.png')} 
+            onPress={() => navigation.navigate('SoilInfo')} 
+          />
 
-          <FeatureTile title={'मिट्टी की जानकारी'} icon={require('../assets/vector-8.png')} onPress={() => navigation.navigate('SoilInfo')} />
+          <FeatureTile 
+            title={'सिंचाई प्रबंधन'} 
+            icon={require('../assets/watering-plants.png')} 
+            onPress={() => navigation.navigate('Irrigation')} 
+          />
 
-          <FeatureTile title={'वॉइस एआई सहायक'} icon={require('../assets/vector-7.png')} onPress={() => navigation.navigate('VoiceAssistant')} />
+          {/* Market & Business */}
+          <FeatureTile 
+            title={'बाज़ार भाव'} 
+            icon={require('../assets/vector-9.png')} 
+            onPress={() => navigation.navigate('MarketPrices')} 
+          />
 
-          {/* New: Calendar */}
-          <FeatureTile title={'फसल कैलेंडर'} icon={require('../assets/calendar.png')} onPress={() => navigation.navigate('Calendar')} />
+          <FeatureTile 
+            title={'सरकारी योजनाएं'} 
+            icon={require('../assets/vector-4.png')} 
+            onPress={() => navigation.navigate('GovSchemes')} 
+          />
 
-          {/* New: Irrigation */}
-          <FeatureTile title={'सिंचाई'} icon={require('../assets/watering-plants.png')} onPress={() => navigation.navigate('Irrigation')} />
+          {/* Advanced Features */}
+          <FeatureTile 
+            title={'कृषि रसायन'} 
+            icon={require('../assets/vector-3.png')} 
+            onPress={() => navigation.navigate('Agrochemical')} 
+          />
 
-          {/* New: Agrochemical */}
-          <FeatureTile title={'Agrochemical'} icon={require('../assets/vector-3.png')} onPress={() => navigation.navigate('Agrochemical')} />
-
-          {/* New: Government Schemes */}
-          <FeatureTile title={'Government Schemes'} icon={require('../assets/vector-4.png')} onPress={() => navigation.navigate('GovSchemes')} />
+          <FeatureTile 
+            title={'AI सहायक'} 
+            icon={require('../assets/vector-7.png')} 
+            onPress={() => navigation.navigate('VoiceAssistant')} 
+          />
         </View>
       </ScrollView>
 
@@ -304,9 +335,10 @@ const styles = StyleSheet.create({
   featuresGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
     marginBottom: 100,
+    gap: 12,
   },
   featureButton: {
     backgroundColor: '#4A90E2',

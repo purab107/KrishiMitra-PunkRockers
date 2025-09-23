@@ -10,6 +10,7 @@ import enNavigation from './locales/en/navigation.json';
 import enAuth from './locales/en/auth.json';
 import enProfile from './locales/en/profile.json';
 import enCrop from './locales/en/crop.json';
+import enCalendar from './locales/en/calendar.json';
 
 import hiCommon from './locales/hi/common.json';
 import hiTutorial from './locales/hi/tutorial.json';
@@ -17,6 +18,7 @@ import hiNavigation from './locales/hi/navigation.json';
 import hiAuth from './locales/hi/auth.json';
 import hiProfile from './locales/hi/profile.json';
 import hiCrop from './locales/hi/crop.json';
+import hiCalendar from './locales/hi/calendar.json';
 
 const LANGUAGE_DETECTOR = {
   type: 'languageDetector',
@@ -62,6 +64,7 @@ const resources = {
     auth: enAuth,
     profile: enProfile,
     crop: enCrop,
+    calendar: enCalendar,
   },
   hi: {
     common: hiCommon,
@@ -70,6 +73,7 @@ const resources = {
     auth: hiAuth,
     profile: hiProfile,
     crop: hiCrop,
+    calendar: hiCalendar,
   },
   // Add other languages as they're created
   bn: {
@@ -79,6 +83,7 @@ const resources = {
     auth: hiAuth,
     profile: hiProfile,
     crop: hiCrop,
+    calendar: hiCalendar,
   },
   ta: {
     common: hiCommon, // Fallback to Hindi for now
@@ -87,6 +92,7 @@ const resources = {
     auth: hiAuth,
     profile: hiProfile,
     crop: hiCrop,
+    calendar: hiCalendar,
   },
   te: {
     common: hiCommon, // Fallback to Hindi for now
@@ -95,6 +101,7 @@ const resources = {
     auth: hiAuth,
     profile: hiProfile,
     crop: hiCrop,
+    calendar: hiCalendar,
   },
   mr: {
     common: hiCommon, // Fallback to Hindi for now
@@ -103,6 +110,7 @@ const resources = {
     auth: hiAuth,
     profile: hiProfile,
     crop: hiCrop,
+    calendar: hiCalendar,
   },
 };
 
@@ -114,7 +122,7 @@ i18n
     resources,
     fallbackLng: 'hi',
     defaultNS: 'common',
-    ns: ['common', 'tutorial', 'navigation', 'auth', 'profile', 'crop'],
+    ns: ['common', 'tutorial', 'navigation', 'auth', 'profile', 'crop', 'calendar'],
     
     interpolation: {
       escapeValue: false,

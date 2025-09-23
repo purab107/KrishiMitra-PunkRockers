@@ -1,0 +1,71 @@
+{
+  "title": "Smart Calendar",
+  "subtitle": "Crop-based farming schedule",
+  "back": "← Back",
+  "addNewCrop": "Add New Crop",
+  "selectCrop": "Select Crop Type",
+  "plantingDate": "Planting Date",
+  "plantedOn": "Planted on",
+  "plantedCrops": "My Planted Crops",
+  "noCropsPlanted": "No crops planted yet. Add your first crop!",
+  "activities": "Activities",
+  "noActivitiesForDate": "No farming activities for this date",
+  "viewSchedule": "View Full Schedule",
+  "cropSchedule": "Crop Schedule",
+  "fullSchedule": "Complete Farming Schedule",
+  "daysAfterPlanting": "Days after planting",
+  "activityPeriod": "Activity Period",
+  "frequency": "Frequency",
+  "cancel": "Cancel",
+  "save": "Save",
+  "close": "Close",
+  "delete": "Delete",
+  "confirmDelete": "Delete Crop",
+  "confirmDeleteMessage": "Are you sure you want to delete this crop? This will remove all associated schedules.",
+  "cropTypes": {
+    "rice": "Rice",
+    "wheat": "Wheat", 
+    "corn": "Corn",
+    "tomato": "Tomato",
+    "potato": "Potato",
+    "sugarcane": "Sugarcane"
+  },
+  "activityTypes": {
+    "watering": "Watering",
+    "fertilizing": "Fertilizing", 
+    "harvesting": "Harvesting"
+  },
+  "scheduleDetails": {
+    "rice": {
+      "totalDays": "110-120 days crop cycle",
+      "description": "Rice requires consistent water management and timely fertilization"
+    },
+    "wheat": {
+      "totalDays": "120-130 days crop cycle",
+      "description": "Wheat needs moderate irrigation and proper fertilization timing"
+    },
+    "corn": {
+      "totalDays": "90-100 days crop cycle", 
+      "description": "Corn requires regular watering during growth period"
+    },
+    "tomato": {
+      "totalDays": "75-90 days crop cycle",
+      "description": "Tomatoes need daily watering and multiple fertilizations"
+    },
+    "potato": {
+      "totalDays": "80-90 days crop cycle",
+      "description": "Potatoes require controlled irrigation and timely fertilization"
+    },
+    "sugarcane": {
+      "totalDays": "365-380 days crop cycle",
+      "description": "Sugarcane is a long-term crop requiring consistent care"
+    }
+  },
+  "errors": {
+    "selectCrop": "Please select a crop type"
+  },
+  "success": {
+    "cropAdded": "Crop added successfully! Calendar updated with farming schedule.",
+    "cropDeleted": "Crop deleted successfully."
+  }
+}

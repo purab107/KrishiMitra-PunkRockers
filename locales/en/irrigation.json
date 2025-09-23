@@ -1,0 +1,57 @@
+{
+  "title": "Irrigation Schedules",
+  "tabs": {
+    "schedules": "Schedules",
+    "history": "History",
+    "tips": "Tips"
+  },
+  "plantedOn": "Planted on",
+  "scheduleStart": "Start Date",
+  "scheduleEnd": "End Date",
+  "frequency": "Frequency",
+  "defaultField": "Main Field",
+  "confirmIrrigation": "Mark as Irrigated",
+  "confirmIrrigationMessage": "Have you completed the irrigation for this crop?",
+  "markCompleted": "Mark Completed",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "goToCalendar": "Go to Calendar",
+  "notSet": "Not Set",
+  "status": {
+    "upcoming": "Upcoming",
+    "active": "Active",
+    "overdue": "Overdue"
+  },
+  "emptyStates": {
+    "noCrops": "No crops planted yet. Go to Calendar to plant your first crop!",
+    "noSchedules": "No irrigation schedules available. Plant crops in Calendar to see schedules here.",
+    "noHistory": "No irrigation history available. Complete some irrigation tasks to see history here."
+  },
+  "success": {
+    "irrigationCompleted": "Irrigation marked as completed successfully!",
+    "schedulesRefreshed": "Schedules refreshed from calendar data!"
+  },
+  "tips": {
+    "general": {
+      "title": "General Irrigation Tips",
+      "tip1": "Water early morning (6-10 AM) or late evening (6-8 PM) to reduce evaporation",
+      "tip2": "Check soil moisture before watering - stick your finger 2 inches deep",
+      "tip3": "Water deeply but less frequently to encourage root growth",
+      "tip4": "Use mulch around plants to retain soil moisture",
+      "tip5": "Avoid watering during windy conditions to prevent uneven distribution"
+    },
+    "efficiency": {
+      "title": "Water Efficiency",
+      "tip1": "Drip irrigation can save 30-50% more water than sprinkler systems",
+      "tip2": "Group plants with similar water needs together",
+      "tip3": "Install rain sensors to automatically skip irrigation during rainfall",
+      "tip4": "Regular maintenance of irrigation systems prevents water waste"
+    },
+    "seasonal": {
+      "title": "Seasonal Considerations",
+      "tip1": "Increase watering frequency during hot summer months",
+      "tip2": "Reduce watering in monsoon season and check weather forecasts",
+      "tip3": "Adjust watering schedules based on plant growth stages"
+    }
+  }
+}

@@ -272,9 +272,16 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
   profileButton: {
-    padding: 8,
+    padding: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 8,
   },
   welcomeText: {
     color: '#fff',

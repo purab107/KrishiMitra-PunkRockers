@@ -32,10 +32,10 @@ const linking = {
   prefixes: [Linking.createURL('/')],
   config: {
     screens: {
-      // Map paths to routes. On web the root path will go to Login by default.
-      Splash: 'splash',
+      // Map paths to routes. Root path will now go to Splash screen first.
+      Splash: '',
       Language: 'language',
-      Login: '',
+      Login: 'login',
       SignUp: 'signup',
       Home: 'home',
       CropRecommendation: 'crop',

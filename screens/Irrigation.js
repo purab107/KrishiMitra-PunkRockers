@@ -9,27 +9,30 @@ import {
   Modal,
   TextInput,
   Dimensions,
-  FlatList
+  RefreshControl,
+  StatusBar
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { cropSchedules, calculateActivityDate } from '../data/cropSchedules';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export default function Irrigation({ navigation }) {
   const { t, i18n } = useTranslation('irrigation');
   const [plantedCrops, setPlantedCrops] = useState([]);
   const [irrigationSchedules, setIrrigationSchedules] = useState([]);
   const [irrigationHistory, setIrrigationHistory] = useState([]);
-  const [activeTab, setActiveTab] = useState('schedules'); // 'schedules', 'history', 'tips'
-  const [showIrrigationModal, setShowIrrigationModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('today'); // 'today', 'schedule', 'history'
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [waterAmount, setWaterAmount] = useState('');
+  const [notes, setNotes] = useState('');
 
   useEffect(() => {
-    loadPlantedCrops();
-    loadIrrigationHistory();
+    loadData();
   }, []);
 
   useEffect(() => {
@@ -37,6 +40,19 @@ export default function Irrigation({ navigation }) {
       generateIrrigationSchedules();
     }
   }, [plantedCrops]);
+
+  const loadData = async () => {
+    await Promise.all([
+      loadPlantedCrops(),
+      loadIrrigationHistory()
+    ]);
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
+  };
 
   const loadPlantedCrops = async () => {
     try {
@@ -303,53 +319,90 @@ export default function Irrigation({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+      {/* Enhanced Header */}
       <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
-        <Text style={styles.title}>{t('title')}</Text>
-        <TouchableOpacity
-          style={styles.refreshButton}
-          onPress={() => {
-            loadPlantedCrops();
-            Alert.alert(t('success.schedulesRefreshed'));
-          }}
-        >
-          <Icon name="refresh" size={24} color="#fff" />
-        </TouchableOpacity>
+        <View style={styles.headerTop}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Icon name="arrow-back" size={24} color="#fff" />
+          </TouchableOpacity>
+          <View style={styles.headerContent}>
+            <Text style={styles.headerTitle}>{t('title')}</Text>
+            <Text style={styles.subtitle}>{t('smartIrrigationSystem')}</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.refreshButton}
+            onPress={() => {
+              loadPlantedCrops();
+              Alert.alert(t('success.schedulesRefreshed'));
+            }}
+          >
+            <Icon name="refresh" size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
+        
+        {/* Quick Stats */}
+        <View style={styles.statsRow}>
+          <View style={styles.statItem}>
+            <Icon name="water-drop" size={20} color="#81C784" />
+            <Text style={styles.statNumber}>{irrigationSchedules.filter(s => s.status === 'active' && !s.isCompleted).length}</Text>
+            <Text style={styles.statLabel}>{t('pending')}</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Icon name="schedule" size={20} color="#FFB74D" />
+            <Text style={styles.statNumber}>{irrigationSchedules.filter(s => s.status === 'upcoming').length}</Text>
+            <Text style={styles.statLabel}>{t('upcoming')}</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Icon name="check-circle" size={20} color="#A5D6A7" />
+            <Text style={styles.statNumber}>{irrigationHistory.length}</Text>
+            <Text style={styles.statLabel}>{t('completed')}</Text>
+          </View>
+        </View>
       </View>
 
-      {/* Tab Navigation */}
+      {/* Enhanced Tab Navigation */}
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'schedules' && styles.activeTab]}
           onPress={() => setActiveTab('schedules')}
         >
-          <Icon name="schedule" size={20} color={activeTab === 'schedules' ? '#2196F3' : '#666'} />
+          <View style={styles.tabIconContainer}>
+            <Icon name="schedule" size={22} color={activeTab === 'schedules' ? '#2196F3' : '#666'} />
+          </View>
           <Text style={[styles.tabText, activeTab === 'schedules' && styles.activeTabText]}>
-            {t('tabs.schedules')}
+            {t('schedules')}
           </Text>
+          {irrigationSchedules.filter(s => s.status === 'active' && !s.isCompleted).length > 0 && (
+            <View style={styles.tabBadge}>
+              <Text style={styles.tabBadgeText}>
+                {irrigationSchedules.filter(s => s.status === 'active' && !s.isCompleted).length}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'history' && styles.activeTab]}
           onPress={() => setActiveTab('history')}
         >
-          <Icon name="history" size={20} color={activeTab === 'history' ? '#2196F3' : '#666'} />
+          <View style={styles.tabIconContainer}>
+            <Icon name="history" size={22} color={activeTab === 'history' ? '#2196F3' : '#666'} />
+          </View>
           <Text style={[styles.tabText, activeTab === 'history' && styles.activeTabText]}>
-            {t('tabs.history')}
+            {t('history')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, activeTab === 'tips' && styles.activeTab]}
           onPress={() => setActiveTab('tips')}
         >
-          <Icon name="lightbulb" size={20} color={activeTab === 'tips' ? '#2196F3' : '#666'} />
+          <View style={styles.tabIconContainer}>
+            <Icon name="tips-and-updates" size={22} color={activeTab === 'tips' ? '#2196F3' : '#666'} />
+          </View>
           <Text style={[styles.tabText, activeTab === 'tips' && styles.activeTabText]}>
-            {t('tabs.tips')}
+            {t('tips')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -359,13 +412,17 @@ export default function Irrigation({ navigation }) {
         {activeTab === 'schedules' && (
           plantedCrops.length === 0 ? (
             <View style={styles.emptyState}>
-              <Icon name="agriculture" size={64} color="#ddd" />
+              <View style={styles.emptyIconContainer}>
+                <Icon name="agriculture" size={72} color="#E0E0E0" />
+              </View>
+              <Text style={styles.emptyTitle}>{t('noCropsTitle')}</Text>
               <Text style={styles.emptyText}>{t('emptyStates.noCrops')}</Text>
               <TouchableOpacity
-                style={styles.goToCalendarButton}
+                style={styles.emptyActionButton}
                 onPress={() => navigation.navigate('Calendar')}
               >
-                <Text style={styles.goToCalendarText}>{t('goToCalendar')}</Text>
+                <Icon name="add" size={20} color="#fff" />
+                <Text style={styles.emptyActionText}>{t('goToCalendar')}</Text>
               </TouchableOpacity>
             </View>
           ) : irrigationSchedules.length > 0 ? (
@@ -404,6 +461,18 @@ export default function Irrigation({ navigation }) {
         {activeTab === 'tips' && renderTipsTab()}
       </View>
 
+      {/* Floating Action Button */}
+      {activeTab === 'schedules' && irrigationSchedules.filter(s => s.status === 'active' && !s.isCompleted).length > 0 && (
+        <TouchableOpacity style={styles.fab} onPress={() => {
+          const activeSchedules = irrigationSchedules.filter(s => s.status === 'active' && !s.isCompleted);
+          if (activeSchedules.length > 0) {
+            markAsIrrigated(activeSchedules[0].id);
+          }
+        }}>
+          <Icon name="water-drop" size={28} color="#fff" />
+        </TouchableOpacity>
+      )}
+
     </View>
   );
 }
@@ -411,27 +480,496 @@ export default function Irrigation({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f5f7fa',
   },
   header: {
+    backgroundColor: '#2196F3',
+    paddingTop: 45,
+    paddingBottom: 16,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+  },
+  headerTop: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 16,
+    marginBottom: 12,
+  },
+  headerContent: {
+    flex: 1,
+    marginLeft: 16,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.8)',
+    marginTop: 2,
+  },
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 16,
+    paddingTop: 8,
+  },
+  statItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  statNumber: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 4,
+  },
+  statLabel: {
+    fontSize: 10,
+    color: 'rgba(255,255,255,0.8)',
+    marginTop: 2,
+  },
+  backButton: {
+    padding: 10,
+    borderRadius: 25,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+  },
+  headerContent: {
+    flex: 1,
+    marginLeft: 16,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.8)',
+    marginTop: 2,
+  },
+  refreshButton: {
+    padding: 10,
+    borderRadius: 25,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+  },
+  tabContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    paddingHorizontal: 4,
+    paddingVertical: 4,
+    margin: 16,
+    borderRadius: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  },
+  tab: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+  },
+  activeTab: {
+    backgroundColor: '#e3f2fd',
+  },
+  tabText: {
+    fontSize: 13,
+    color: '#666',
+    marginLeft: 6,
+    fontWeight: '500',
+  },
+  activeTabText: {
+    color: '#2196F3',
+    fontWeight: '600',
+  },
+  content: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 100,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
+    marginBottom: 8,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  sectionCount: {
+    fontSize: 14,
+    color: '#666',
+    backgroundColor: '#e8f4fd',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  todayCard: {
+    backgroundColor: '#fff',
+    marginHorizontal: 16,
+    marginVertical: 6,
+    borderRadius: 16,
+    padding: 16,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    borderLeftWidth: 4,
+    borderLeftColor: '#4CAF50',
+  },
+  taskHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cropIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#e8f5e8',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  taskInfo: {
+    flex: 1,
+    marginLeft: 12,
+  },
+  taskCrop: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  taskDescription: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 2,
+  },
+  taskFrequency: {
+    fontSize: 12,
+    color: '#999',
+    marginTop: 4,
+  },
+  completeButton: {
     backgroundColor: '#2196F3',
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
+  },
+  scheduleCard: {
+    backgroundColor: '#fff',
+    marginHorizontal: 16,
+    marginVertical: 8,
+    borderRadius: 20,
+    padding: 20,
     elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    borderLeftWidth: 5,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  cropName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    flex: 1,
+  },
+  statusBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  statusText: {
+    fontSize: 11,
+    color: '#fff',
+    fontWeight: '600',
+    textTransform: 'uppercase',
+  },
+  scheduleDetails: {
+    marginTop: 8,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 2,
+  },
+  detailText: {
+    fontSize: 13,
+    color: '#666',
+    marginLeft: 6,
+  },
+  actionButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginTop: 12,
+    alignSelf: 'flex-start',
+  },
+  actionButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
+    marginLeft: 6,
+  },
+  historyCard: {
+    backgroundColor: '#fff',
+    marginHorizontal: 16,
+    marginVertical: 6,
+    borderRadius: 16,
+    padding: 16,
+    elevation: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+  },
+  historyHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  historyInfo: {
+    flex: 1,
+    marginLeft: 12,
+  },
+  historyCrop: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#333',
+  },
+  historyActivity: {
+    fontSize: 13,
+    color: '#4CAF50',
+    marginTop: 2,
+  },
+  historyDate: {
+    fontSize: 12,
+    color: '#999',
+    marginTop: 4,
+  },
+  historyDetail: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 2,
+  },
+  emptyState: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 80,
+    paddingHorizontal: 32,
+  },
+  emptyIconContainer: {
+    backgroundColor: '#F5F5F5',
+    borderRadius: 50,
+    padding: 24,
+    marginBottom: 24,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 32,
+    lineHeight: 24,
+  },
+  emptyActionButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 25,
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
-  backButton: {
-    padding: 8,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.2)',
+  emptyActionText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 8,
   },
-  title: {
+  fab: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#2196F3',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 16,
+    textAlign: 'center',
+  },
+  emptySubtitle: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 8,
+    lineHeight: 20,
+  },
+  primaryButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    marginTop: 24,
+    elevation: 3,
+  },
+  primaryButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 8,
+  },
+  noTasksContainer: {
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+  noTasksText: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 12,
+    textAlign: 'center',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    width: width - 32,
+    maxHeight: height * 0.8,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  modalBody: {
+    padding: 20,
+  },
+  modalCropName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 4,
+  },
+  modalDescription: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 20,
+  },
+  inputGroup: {
+    marginBottom: 16,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#333',
+    marginBottom: 8,
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 14,
+    color: '#333',
+  },
+  textArea: {
+    height: 80,
+    textAlignVertical: 'top',
+  },
+  modalFooter: {
+    flexDirection: 'row',
+    padding: 20,
+    paddingTop: 0,
+  },
+  modalButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 4,
+  },
+  cancelButton: {
+    backgroundColor: '#f5f5f5',
+  },
+  cancelButtonText: {
+    color: '#666',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  completeButtonModal: {
+    backgroundColor: '#2196F3',
+    flexDirection: 'row',
+  },
+  completeButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
+    marginLeft: 6,
+  },
+  headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
@@ -454,27 +992,53 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   tab: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 8,
+    position: 'relative',
+  },
+  tabIconContainer: {
+    marginBottom: 4,
   },
   activeTab: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 3,
     borderBottomColor: '#2196F3',
+    backgroundColor: 'rgba(33, 150, 243, 0.05)',
   },
   tabText: {
-    marginLeft: 6,
-    fontSize: 14,
+    fontSize: 12,
     color: '#666',
+    fontWeight: '500',
   },
   activeTabText: {
     color: '#2196F3',
     fontWeight: '600',
+  },
+  tabBadge: {
+    position: 'absolute',
+    top: 6,
+    right: 12,
+    backgroundColor: '#FF5722',
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabBadgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: 'bold',
   },
   content: {
     flex: 1,

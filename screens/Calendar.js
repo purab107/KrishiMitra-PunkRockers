@@ -8,8 +8,7 @@ import {
   Modal,
   TextInput,
   Alert,
-  Dimensions,
-  FlatList
+  Dimensions
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
@@ -237,8 +236,6 @@ export default function Calendar({ navigation }) {
     );
   };
 
-  const todayActivities = getActivitiesForDate(selectedDate);
-
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -255,7 +252,7 @@ export default function Calendar({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <ScrollView style={styles.content}>
+      <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
         {/* Calendar */}
         <View style={styles.calendarCard}>
           <View style={styles.calendarHeader}>
@@ -529,6 +526,9 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 16,
+  },
+  scrollContent: {
+    paddingBottom: 80,
   },
   calendarCard: {
     backgroundColor: '#fff',
